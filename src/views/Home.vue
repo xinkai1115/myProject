@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>这是首页</h1>
+    <h1>这是首页dsaasdasd</h1>
     <GoodsMain></GoodsMain>
   </div>
 </template>
