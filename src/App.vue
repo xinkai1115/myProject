@@ -1,14 +1,165 @@
 <template>
   <div id="app">
-    <router-link to="/">首页</router-link> |
-    <router-link to="/list">礼品馆</router-link>
-    <router-link to="/list">蛋糕馆</router-link>
-    <router-link to="/cart">购物车</router-link>
-    <router-link to="/index">个人中心</router-link>
-    <router-view/>
+    <div>
+      <router-view></router-view>
+    </div>
+    <!--<img alt="Vue logo" src="./assets/logo.png">-->
+    <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
+    <div class="footer_wrap">
+      <ul class="wrap">
+        <li><router-link to="/">首页</router-link></li>
+        <li><router-link to="/list">礼品馆</router-link></li>
+        <li><router-link to="/list">蛋糕馆</router-link></li>
+        <li><router-link to="/cart">购物车</router-link></li>
+        <li><router-link to="/index">个人中心</router-link></li>
+      </ul>
+
+    </div>
+
   </div>
 </template>
 
-<style lang="less">
+<script>
+    // import HelloWorld from './components/HelloWorld.vue'
+    // import aaa from './components/nav.vue'
 
+    export default {
+        name: 'app'
+    }
+
+</script>
+
+<style>
+
+  .footer_wrap{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 108px;
+    z-index: 10;
+    background: #ffffff;
+    border-top: 1PX solid #d1c6af;
+  }
+  .wrap{
+    width: 100%;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction:row;
+    flex-wrap: nowrap;
+    justify-content:center;
+    height: 100px;
+  }
+  .wrap li{
+    width: 150px;
+    flex-grow:1;
+    position: relative;
+  }
+  .wrap li a{
+    width: 100%;
+    display: block;
+    text-align: center;
+    height: 36px;
+    line-height: 36px;
+    padding-top: 64px;
+    text-decoration: none;
+    color: #a38d6b;
+  }
+  /*.wrap li:nth-child(1) a{*/
+  /*color: #ff4001;*/
+  /*}*/
+  .wrap li:nth-child(1) .active{
+    color: #ff4001;
+  }
+  .wrap li:nth-child(1) .active:before{
+    background-position: 0 0;
+  }
+  .wrap li:nth-child(2) .active{
+    color: #ff4001;
+  }
+  .wrap li:nth-child(2) .active:before{
+    background-position: 0 -50px;
+  }.wrap li:nth-child(3) .active{
+     color: #ff4001;
+   }
+  .wrap li:nth-child(3) .active:before{
+    background-position: 0 -100px;
+  }.wrap li:nth-child(4) .active{
+     color: #ff4001;
+   }
+  .wrap li:nth-child(4) .active:before{
+    background-position: 0 -150px;
+  }.wrap li:nth-child(5) .active{
+     color: #ff4001;
+   }
+  .wrap li:nth-child(5) .active:before{
+    background-position: 0 -200px;
+  }
+  .wrap li:nth-child(1) a:before{
+    content: " ";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: url(./assets/img/1.png) no-repeat center;
+    background-position: -50px 0;
+    background-size: 100px 400px;
+    left: 50%;
+    margin-left:-25px;
+    top: 10px;
+  }
+  .wrap li:nth-child(2) a:before{
+    content: " ";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: url(./assets/img/1.png) no-repeat center;
+    background-position: -50px -50px;
+    background-size: 100px 400px;
+    left: 50%;
+    margin-left:-25px;
+    top: 10px;
+  }
+  .wrap li:nth-child(3) a:before{
+    content: " ";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: url(./assets/img/1.png) no-repeat center;
+    background-position: -50px -100px;
+    background-size: 100px 400px;
+    left: 50%;
+    margin-left:-25px;
+    top: 10px;
+  }
+  .wrap li:nth-child(4) a:before{
+    content: " ";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: url(./assets/img/1.png) no-repeat center;
+    background-position: -50px -150px;
+    background-size: 100px 400px;
+    left: 50%;
+    margin-left:-25px;
+    top: 10px;
+  }
+  .wrap li:nth-child(5) a:before{
+    content: " ";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: url(./assets/img/1.png) no-repeat center;
+    background-position: -50px -200px;
+    background-size: 100px 400px;
+    left: 50%;
+    margin-left:-25px;
+    top: 10px;
+  }
 </style>
+
+
+
+
+
+
+

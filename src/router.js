@@ -33,4 +33,6 @@ export default new Router({
         component:PersonalCenter
     }
   ]
+    // linkActiveClass:"active"
+
 })
