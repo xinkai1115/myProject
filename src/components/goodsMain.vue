@@ -11,5 +11,6 @@
 <style scoped>
     div{
         font-size: 40px;
+        color: red;
     }
 </style>
