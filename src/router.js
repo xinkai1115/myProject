@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import GoodsList from './views/goodList'
 import PersonalCenter from './views/personalCenter'
 import ShoppingCart from './views/shoppingCart'
+import Announcement from './components/home/announcement'//公告组件
 
 Vue.use(Router)
 
@@ -15,7 +16,13 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
-      alias:'/home'
+      alias:'/home',
+        children:[
+            {
+                path: "/home/notice",
+                component: Announcement
+            }
+        ]
     },
     {
       path: '/list',
@@ -32,7 +39,7 @@ export default new Router({
         name: 'PersonalCenter',
         component:PersonalCenter
     }
-  ]
-    // linkActiveClass:"active"
-
+  ],
+    linkActiveClass: '',
+    linkExactActiveClass:''
 })
