@@ -26,7 +26,7 @@
 
 </script>
 
-<style>
+<style  >
 
   .footer_wrap{
     position: fixed;
