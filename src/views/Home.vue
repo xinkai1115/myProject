@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+<<<<<<< HEAD
     <div>
       <router-view class="a"></router-view>
     </div>
@@ -54,6 +55,10 @@
       </section>
     </div>
     <GoodsMain></GoodsMain>
+=======
+    <h1>这是首页dsaasdasd</h1>
+      <GoodsMain ></GoodsMain>
+>>>>>>> 60a23d65eed57da39378df134cb00714ed1c44b2
   </div>
 </template>
 
@@ -65,6 +70,7 @@ import Swiper from 'swiper';
 
 export default {
   name: 'home',
+
   components: {
       GoodsMain,
       Handlerbtn
