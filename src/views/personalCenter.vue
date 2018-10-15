@@ -70,7 +70,7 @@
     }
 
 </script>
-<style scoped >
+<style scoped>
     .wrap1{
         background-color:#ffffff;
         position:relative;
