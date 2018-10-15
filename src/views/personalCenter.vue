@@ -24,7 +24,7 @@
            </div>
        </div>
    <hr>
-   <div class="main-order">
+   <div class="main-order"  >
        <a href="">待付款</a>
        <a href="">待发货</a>
        <a href="">待收货</a>
