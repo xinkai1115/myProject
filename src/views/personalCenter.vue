@@ -24,8 +24,8 @@
             </div>
             <div class="header-hidden">
                 <div class="info">
-                    <strong>心享卡<>
-                        <a href="" class="buy-link">立即开通</a>
+                    <strong>心享卡</strong>>
+                    <a href="" class="buy-link">立即开通</a>
                 </div>
             </div>
             <hr>
