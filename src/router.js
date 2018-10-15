@@ -4,12 +4,12 @@ import Home from './views/Home.vue'
 import GoodsList from './views/goodList'
 import PersonalCenter from './views/personalCenter'
 import ShoppingCart from './views/shoppingCart'
-<<<<<<< HEAD
+
 import Announcement from './components/home/announcement'//公告组件
-=======
+
 import MyOrder from "./components/personalCenter/myOrder"
 import MyMind from "./components/personalCenter/myMind"
->>>>>>> 60a23d65eed57da39378df134cb00714ed1c44b2
+
 
 Vue.use(Router)
 
@@ -43,12 +43,6 @@ export default new Router({
         path: '/index',
         name: 'PersonalCenter',
         component:PersonalCenter
-<<<<<<< HEAD
-    }
-  ],
-    linkActiveClass: '',
-    linkExactActiveClass:''
-=======
     },
       {
           path:'/index/order',
@@ -58,8 +52,7 @@ export default new Router({
           path:'/index/mymind',
           component:MyMind
       }
-  ]
-    // linkActiveClass:"active"
-
->>>>>>> 60a23d65eed57da39378df134cb00714ed1c44b2
+  ],
+    linkActiveClass: '',
+    linkExactActiveClass:''
 })
