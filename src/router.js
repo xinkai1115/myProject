@@ -4,6 +4,8 @@ import Home from './views/Home.vue'
 import GoodsList from './views/goodList'
 import PersonalCenter from './views/personalCenter'
 import ShoppingCart from './views/shoppingCart'
+import MyOrder from "./components/personalCenter/myOrder"
+import MyMind from "./components/personalCenter/myMind"
 
 Vue.use(Router)
 
@@ -31,7 +33,15 @@ export default new Router({
         path: '/index',
         name: 'PersonalCenter',
         component:PersonalCenter
-    }
+    },
+      {
+          path:'/index/order',
+          component:MyOrder
+      },
+      {
+          path:'/index/mymind',
+          component:MyMind
+      }
   ]
     // linkActiveClass:"active"
 
