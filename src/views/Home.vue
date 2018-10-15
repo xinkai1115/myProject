@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>这是首页dsaasdasd</h1>
-    <GoodsMain></GoodsMain>
+      <GoodsMain ></GoodsMain>
   </div>
 </template>
 
@@ -11,6 +11,7 @@ import GoodsMain from '../components/goodsMain'
 
 export default {
   name: 'home',
+
   components: {
       GoodsMain
   }
