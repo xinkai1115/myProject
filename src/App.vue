@@ -7,7 +7,7 @@
     <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
     <div class="footer_wrap">
       <ul class="wrap">
-        <li><router-link to="/">首页</router-link></li>
+        <li class="active"><router-link to="/">首页</router-link></li>
         <li><router-link to="/list">礼品馆</router-link></li>
         <li><router-link to="/list">蛋糕馆</router-link></li>
         <li><router-link to="/cart">购物车</router-link></li>
@@ -21,12 +21,23 @@
 
 <script>
     export default {
-        name: 'app'
+        name: 'app',
+        mounted(){
+            var btn = document.querySelectorAll(".wrap li");
+            for (let i=0; i<btn.length; i++){
+                btn[i].onclick = function(){
+                    for(let j = 0;j < btn.length;j++){
+                        btn[j].className = "";
+                    }
+                    this.className = "active"
+                }
+            }
+        }
     }
 
 </script>
 
-<style  >
+<style scoped>
 
   .footer_wrap{
     position: fixed;
@@ -65,31 +76,31 @@
   /*.wrap li:nth-child(1) a{*/
   /*color: #ff4001;*/
   /*}*/
-  .wrap li:nth-child(1) .active{
+  .wrap .active:nth-child(1) a{
     color: #ff4001;
   }
-  .wrap li:nth-child(1) .active:before{
+  .wrap .active:nth-child(1) a:before{
     background-position: 0 0;
   }
-  .wrap li:nth-child(2) .active{
+  .wrap .active:nth-child(2) a{
     color: #ff4001;
   }
-  .wrap li:nth-child(2) .active:before{
+  .wrap .active:nth-child(2) a:before{
     background-position: 0 -50px;
-  }.wrap li:nth-child(3) .active{
+  }.wrap .active:nth-child(3) a{
      color: #ff4001;
    }
-  .wrap li:nth-child(3) .active:before{
+  .wrap .active:nth-child(3) a:before{
     background-position: 0 -100px;
-  }.wrap li:nth-child(4) .active{
+  }.wrap .active:nth-child(4) a{
      color: #ff4001;
    }
-  .wrap li:nth-child(4) .active:before{
+  .wrap .active:nth-child(4) a:before{
     background-position: 0 -150px;
-  }.wrap li:nth-child(5) .active{
+  }.wrap .active:nth-child(5) a{
      color: #ff4001;
    }
-  .wrap li:nth-child(5) .active:before{
+  .wrap .active:nth-child(5) a:before{
     background-position: 0 -200px;
   }
   .wrap li:nth-child(1) a:before{

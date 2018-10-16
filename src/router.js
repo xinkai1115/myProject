@@ -4,6 +4,9 @@ import Home from './views/Home.vue'
 import GoodsList from './views/goodList'
 import PersonalCenter from './views/personalCenter'
 import ShoppingCart from './views/shoppingCart'
+
+import Announcement from './components/home/announcement'
+
 import MyOrder from "./components/personalCenter/myOrder"
 import MyMind from "./components/personalCenter/myMind"
 import MyToken from "./components/personalCenter/myToken"
@@ -14,6 +17,7 @@ import MyLeclub from "./components/personalCenter/myLeclub"
 import CouponCake from "./components/personalCenter/myCoupon/couponCake"
 import  CouponCard from "./components/personalCenter/myCoupon/couponCard"
 import BindCard from "./components/personalCenter/myCard/bindCard"
+
 
 Vue.use(Router)
 
@@ -84,8 +88,45 @@ export default new Router({
       {
           path:'/index/myleclub',
           component:MyLeclub
-      }
-  ]
+      },
     // linkActiveClass:"active"
 
+        {
+            path: '/',
+            name: 'home',
+            component: Home,
+            alias:'/home',
+            children:[
+                {
+                    path: "/home/notice",
+                    component: Announcement
+                }
+            ]
+        },
+        {
+            path: '/list',
+            name: 'GoodsList',
+            component: GoodsList
+        },
+        {
+            path: '/cart',
+            name: 'ShoppingCart',
+            component:ShoppingCart
+        },
+        {
+            path: '/index',
+            name: 'PersonalCenter',
+            component:PersonalCenter
+        },
+        {
+            path:'/index/order',
+            component:MyOrder
+        },
+        {
+            path:'/index/mymind',
+            component:MyMind
+        }
+    ],
+    linkActiveClass: '',
+    linkExactActiveClass:''
 })
