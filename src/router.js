@@ -5,7 +5,7 @@ import GoodsList from './views/goodList'
 import PersonalCenter from './views/personalCenter'
 import ShoppingCart from './views/shoppingCart'
 
-import Announcement from './components/home/announcement'//公告组件
+import Announcement from './components/home/announcement'
 
 import MyOrder from "./components/personalCenter/myOrder"
 import MyMind from "./components/personalCenter/myMind"
