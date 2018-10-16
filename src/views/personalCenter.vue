@@ -37,12 +37,12 @@
        </div>
        <hr>
        <div class="main-list">
-           <a href="">优惠卡券</a>
-           <a href="">储值卡</a>
-           <a href="">leclub</a>
+           <router-link to="/index/mytoken">优惠卡券</router-link>
+           <router-link to="/index/mycard">储值卡</router-link>
+           <router-link to="/index/myleclub">leclub</router-link>
            <hr>
-           <a href="" class="no-icon">关于我们</a>
-           <a href="" class="no-icon">关于发票</a>
+           <router-link class="no-icon" to="/index/myourself">关于我们</router-link>
+           <router-link class="no-icon" to="/index/mybill">关于发票</router-link>
        </div>
        <div class="main-footer">
            <a href="">客服电话&nbsp;&nbsp;4001&nbsp;578&nbsp;578</a>
@@ -66,7 +66,7 @@
 
         },
         mounted(){
-            var btn = document.querySelectorAll(".main-order>a");
+
         }
     }
 
