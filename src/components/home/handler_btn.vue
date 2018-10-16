@@ -6,7 +6,7 @@
         <div class="city">
             <div class="global_cover"></div>
             <div class="city_selector">
-                <header>
+                <header id="city">
                     <h2>配送至</h2>
                     <h3>当前定位城市：<strong>松江区</strong></h3>
                 </header>
@@ -119,7 +119,7 @@
         height: 100%;
         display: none;
     }
-    .city_selector header{
+    .city_selector #city{
         padding: 20px 36px;
         color: #3e3e3e;
         margin-bottom: 8px;
