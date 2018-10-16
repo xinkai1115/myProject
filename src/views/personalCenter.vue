@@ -6,7 +6,7 @@
         <!--我的订单组件-->
         <router-view></router-view>
         <div class="centre">
-            <div class="header">
+            <div class="header1">
                 <div class="header-img">
                     <img src="../assets/img/avatar.png" alt="">
                 </div>
@@ -24,7 +24,7 @@
             </div>
             <div class="header-hidden">
                 <div class="info">
-                    <strong>心享卡</strong>>
+                    <strong>心享卡</strong>
                     <a href="" class="buy-link">立即开通</a>
                 </div>
             </div>
@@ -78,7 +78,7 @@
         height:100vh;
     }
 
-    .header{
+    .header1{
         position: relative;
         background-color:#f4f4f4;
         text-align:center;
