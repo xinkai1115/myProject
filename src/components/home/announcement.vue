@@ -146,8 +146,10 @@
         name: "announcement",
         methods:{
             gohome(){
-                this.$router.go(-1)
-            }
+                this.$router.go(-1);
+                this.$emit("changeData")
+            },
+
         }
     }
 </script>

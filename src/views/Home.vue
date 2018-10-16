@@ -1,64 +1,63 @@
 <template>
   <div class="home">
-<<<<<<< HEAD
+
     <div>
-      <router-view class="a"></router-view>
+      <router-view @changeData="aaa" class="a"></router-view>
     </div>
-    <header>
-      <div class="header">
-        <Handlerbtn></Handlerbtn>
-        <h1 class="tit"></h1>
-        <router-link class="announcement" to="/home/notice"></router-link>
-      </div>
-    </header>
-    <div class="main">
-      <div>
-        <section class="coupon_header">
-          【 先领券 后下单 】
+    <div class="aa" v-show="a">
+      <header>
+        <div class="header">
+          <Handlerbtn></Handlerbtn>
+          <h1 class="tit"></h1>
+          <router-link  @click.native="a=false" class="announcement" to="/home/notice"></router-link>
+        </div>
+      </header>
+      <div class="main">
+        <div>
+          <section class="coupon_header">
+            【 先领券 后下单 】
+          </section>
+        </div>
+        <section>
+          <div class="inner">
+            <div class="swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"><a href=""></a></div>
+                <div class="swiper-slide"><a href=""></a></div>
+                <div class="swiper-slide"><a href=""></a></div>
+                <div class="swiper-slide"><a href=""></a></div>
+              </div>
+              <div id="sw" class="swiper-pagination"></div>
+            </div>
+          </div>
+        </section>
+        <section class="topic_wrap">
+          <a href="">
+            <img src="../assets/img/h.jpg" alt="">
+          </a>
+          <a href="">
+            <img src="../assets/img/g.jpg" alt="">
+          </a>
+        </section>
+        <section class="cake_section">
+          <h2>
+            <a href="">蛋糕馆</a>
+          </h2>
+          <ul class="p_list">
+            <li class="p_item"></li>
+            <li class="p_item"></li>
+            <li class="p_item"></li>
+            <li class="p_item"></li>
+            <li class="p_item"></li>
+            <li class="p_item"></li>
+            <li class="p_item"></li>
+            <li class="p_item"></li>
+          </ul>
         </section>
       </div>
-      <section>
-        <div class="inner">
-          <div class="swiper-container">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide"><a href="">1</a></div>
-              <div class="swiper-slide"><a href="">2</a></div>
-              <div class="swiper-slide"><a href="">3</a></div>
-              <div class="swiper-slide"><a href="">4</a></div>
-            </div>
-            <div class="swiper-pagination"></div>
-          </div>
-        </div>
-      </section>
-      <section class="topic_wrap">
-        <a href="">
-          <img src="../assets/img/h.jpg" alt="">
-        </a>
-        <a href="">
-          <img src="../assets/img/g.jpg" alt="">
-        </a>
-      </section>
-      <section class="cake_section">
-        <h2>
-          <a href="">蛋糕馆</a>
-        </h2>
-        <ul class="p_list">
-          <li class="p_item"></li>
-          <li class="p_item"></li>
-          <li class="p_item"></li>
-          <li class="p_item"></li>
-          <li class="p_item"></li>
-          <li class="p_item"></li>
-          <li class="p_item"></li>
-          <li class="p_item"></li>
-        </ul>
-      </section>
+      <h1>这是首页dsaasdasd</h1>
+        <GoodsMain ></GoodsMain>
     </div>
-    <GoodsMain></GoodsMain>
-=======
-    <h1>这是首页dsaasdasd</h1>
-      <GoodsMain ></GoodsMain>
->>>>>>> 60a23d65eed57da39378df134cb00714ed1c44b2
   </div>
 </template>
 
@@ -75,7 +74,22 @@ export default {
       GoodsMain,
       Handlerbtn
   },
+    data(){
+      return {
+          a : true
+      }
+    },
+    methods:{
+      aaa(){
+          this.a=true
+      }
+    },
     mounted(){
+        // var announcement = document.querySelector(".announcement");
+        // var aa = document.querySelector(".aa");
+        // announcement.onclick = function () {
+        //     aa.style.display = "none";
+        // }
         var mySwiper = new Swiper ('.swiper-container', {
             loop: true,
             delay: 500,
@@ -88,12 +102,12 @@ export default {
                     return '<span class="' + className + '" style="width: 10px;height: 10px;margin: 0 8px;"></span>';
                 },
             }
-
         })
     }
 }
 </script>
-<style scoped>
+
+<style>
   .home{
     padding: 0 0 108px;
   }
@@ -133,7 +147,7 @@ export default {
     color: #a38d6b;
     font-size: 22px;
     z-index: 30;
-    position: absolute;
+    position: fixed;
     width: 96px;
     height: 64px;
     right: 0;
@@ -208,6 +222,14 @@ export default {
     background: url("../assets/img/a.jpg") no-repeat;
     background-size: 100% 100%;
   }
+  #sw{
+    position: absolute;
+    bottom: 0;
+  }
+
+  #sw .swiper-pagination-bullet-active {
+    background: #ff4001;
+  }
   .topic_wrap{
     overflow: hidden;
   }
@@ -269,4 +291,5 @@ export default {
     height: 100px;
     background: red;
   }
+
 </style>
