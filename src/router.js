@@ -88,44 +88,9 @@ export default new Router({
       {
           path:'/index/myleclub',
           component:MyLeclub
-      },
+      }
     // linkActiveClass:"active"
 
-        {
-            path: '/',
-            name: 'home',
-            component: Home,
-            alias:'/home',
-            children:[
-                {
-                    path: "/home/notice",
-                    component: Announcement
-                }
-            ]
-        },
-        {
-            path: '/list',
-            name: 'GoodsList',
-            component: GoodsList
-        },
-        {
-            path: '/cart',
-            name: 'ShoppingCart',
-            component:ShoppingCart
-        },
-        {
-            path: '/index',
-            name: 'PersonalCenter',
-            component:PersonalCenter
-        },
-        {
-            path:'/index/order',
-            component:MyOrder
-        },
-        {
-            path:'/index/mymind',
-            component:MyMind
-        }
     ],
     linkActiveClass: '',
     linkExactActiveClass:''
