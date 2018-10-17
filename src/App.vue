@@ -45,7 +45,7 @@
     left: 0;
     width: 100%;
     height: 108px;
-    z-index: 10;
+    /*z-index: 10;*/
     background: #ffffff;
     border-top: 1PX solid #d1c6af;
   }

@@ -113,10 +113,10 @@
         overflow: hidden;
     }
     .city{
-        position: fixed;
-        z-index: 200;
-        width: 100%;
-        height: 100%;
+        position: absolute;
+        /*z-index: 200;*/
+        width: 100vw;
+        height: 100vh;
         display: none;
     }
     .city_selector #city{
@@ -140,7 +140,6 @@
     color: #3e3e3e;
 }
 .city_selector .main {
-    padding: .1rem 0;
     background: url(../../assets/img/6.png) no-repeat center;
     background-size: cover;
     padding: 26px 0;

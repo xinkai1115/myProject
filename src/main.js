@@ -5,9 +5,11 @@ import store from './store'
 import 'lib-flexible/flexible.js'
 import './assets/reset.css'
 import 'swiper/dist/css/swiper.css'
+import axios from 'axios'
 
-
+Vue.prototype.$http = axios
 Vue.config.productionTip = false
+Vue.prototype.$api = "/api"
 
 new Vue({
   router,
