@@ -814,7 +814,6 @@ export default {
     padding-top: 72px;
     font-size: 100%;
     outline: 0;
-    color: inherit;
     text-decoration: none;
     text-align: center;
   }
@@ -862,11 +861,8 @@ export default {
     position: absolute;
     width: 80%;
     left: 10%;
-    top: 50%;
     transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
     padding: 40px 32px;
-    -webkit-transform: translate(0);
     top: 20%;
     box-sizing: border-box;
   }
