@@ -29,7 +29,13 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
-      alias:'/home'
+      alias:'/home',
+        children:[
+            {
+                path:"/home/notice",
+                component:Announcement
+            }
+        ]
     },
     {
       path: '/list',
@@ -89,8 +95,6 @@ export default new Router({
           path:'/index/myleclub',
           component:MyLeclub
       }
-    // linkActiveClass:"active"
-
     ],
     linkActiveClass: '',
     linkExactActiveClass:''

@@ -1,54 +1,4 @@
 <template>
-   <div class="wrap1 active">
-       <!--登录成功wrap1添加一个class.active-->
-       <!--centre是个人中心主页面组件-->
-       <Login v-if="show"></Login>
-       <!--我的订单组件-->
-       <router-view></router-view>
-   <div class="centre">
-       <div class="header">
-           <div class="header-img">
-               <img src="../assets/img/avatar.png" alt="">
-           </div>
-           <div class="header-login">
-               <a href="#" @click="show=true">登录</a>
-               <h3>
-                   <span class="name">150***3618</span>
-                   <span class="leve">LEV1</span>
-               </h3>
-               <h4>
-                   <span class="f-left">积分:0</span>
-                   <router-link to="/index/mymind"><span class="f-right">心享值:0</span></router-link>
-               </h4>
-           </div>
-       </div>
-       <div class="header-hidden">
-           <div class="info">
-               <strong>心享卡</strong>
-               <a href="" class="buy-link">立即开通</a>
-           </div>
-       </div>
-       <hr>
-       <div class="main-order">
-           <router-link to="/index/order">待付款</router-link>
-           <router-link to="/index/order">待发货</router-link>
-           <router-link to="/index/order">待收货</router-link>
-           <router-link to="/index/order">我的订单</router-link>
-       </div>
-       <hr>
-       <div class="main-list">
-           <router-link to="/index/mytoken">优惠卡券</router-link>
-           <router-link to="/index/mycard">储值卡</router-link>
-           <router-link to="/index/myleclub">leclub</router-link>
-           <hr>
-           <router-link class="no-icon" to="/index/myourself">关于我们</router-link>
-           <router-link class="no-icon" to="/index/mybill">关于发票</router-link>
-       </div>
-       <div class="main-footer">
-           <a href="">客服电话&nbsp;&nbsp;4001&nbsp;578&nbsp;578</a>
-       </div>
-   </div>
-   </div>
     <div class="wrap1 active">
         <!--登录成功wrap1添加一个class.active-->
         <!--centre是个人中心主页面组件-->
@@ -87,12 +37,12 @@
             </div>
             <hr>
             <div class="main-list">
-                <a href="">优惠卡券</a>
-                <a href="">储值卡</a>
-                <a href="">leclub</a>
+                <router-link to="/index/mytoken">优惠卡券</router-link>
+                <router-link to="/index/mycard">储值卡</router-link>
+                <router-link to="/index/myleclub">leclub</router-link>
                 <hr>
-                <a href="" class="no-icon">关于我们</a>
-                <a href="" class="no-icon">关于发票</a>
+                <router-link to="/index/myourself" class="no-icon">关于我们</router-link>
+                <router-link to="/index/mybill" class="no-icon">关于发票</router-link>
             </div>
             <div class="main-footer">
                 <a href="">客服电话&nbsp;&nbsp;4001&nbsp;578&nbsp;578</a>
