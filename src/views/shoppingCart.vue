@@ -1,5 +1,6 @@
 <template>
     <div class="box">
+        <CheckMore v-if="show2"></CheckMore>
         <ChoseGoods></ChoseGoods>
         <div class="box-header">
             <img src="../assets/img/empty.png" alt="">
@@ -31,7 +32,7 @@
                         <a href="#"><span>甄选独立装</span></a>
                         <a href="#"><span>周周配套餐</span></a>
                     </div>
-                    <!--切换甄选独立套餐或者周周配套餐-->
+                    <!--切换周周配套餐-->
                     <div>
                         <div>
                             <a href="">￥99</a>
@@ -58,6 +59,19 @@
                             <p>2.每周为您提供美味的熊抱吐司</p>
                             <p>3.温馨提示：请至少提前1天确认配送时间，一经确认无法更改，以官网下单信息为准</p>
                         </div>
+                    </div>
+                    <!--切换甄选独立套餐-->
+                    <div>
+                        <ul>
+                            <li><SmallGoods></SmallGoods></li>
+                            <li><SmallGoods></SmallGoods></li>
+                            <li><SmallGoods></SmallGoods></li>
+                            <li><SmallGoods></SmallGoods></li>
+                            <li><SmallGoods></SmallGoods></li>
+                            <li><SmallGoods></SmallGoods></li>
+                            <li><SmallGoods></SmallGoods></li>
+                            <li><SmallGoods></SmallGoods></li>
+                        </ul>
                     </div>
                 </div>
                 <div class="box-weekly-main-item2">
@@ -89,6 +103,18 @@
                         <li><SiftGoods></SiftGoods></li>
                         <li><SiftGoods></SiftGoods></li>
                     </ul>
+                    <p><a href="#" @click="show2=!show2">查看更多</a></p>
+                </div>
+                <div class="box-weekly-middle"></div>
+                <div class="box-weekly-main-item4">
+                    <div></div>
+                    <div class="inner">
+                        <a href="#"></a>
+                        <div>结算</div>
+                        <div>
+                            <span>应付:￥<p>210</p></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -97,6 +123,7 @@
 
 <script>
     import GoodsMain from "../components/goodsMain"
+    import CheckMore from "../components/shoppingCar/CheckMore"
     //ChoseGoods是加入购物车的商品组件
     import ChoseGoods from "../components/shoppingCar/choseGoods"
     import SmallGoods from "../components/shoppingCar/smallGoods"
@@ -109,11 +136,13 @@
             ChoseGoods,
             SmallGoods,
             MoreGoods,
-            SiftGoods
+            SiftGoods,
+            CheckMore
         },
         data(){
             return {
-                show:false
+                show:false,
+                show2:false
             }
         }
     }
@@ -203,7 +232,7 @@
         z-index:400;
     }
     .box-weekly{
-        padding-bottom:108px;
+        padding-bottom:250px;
     }
     .box-weekly-header{
         width:100%;
@@ -279,9 +308,11 @@
         background-position: -280px -280px;
         left: -15px;
     }
+    /*甄选独立套餐显示与隐藏*/
     .box-weekly-main-item1>div:nth-child(3){
         position: relative;
         margin:40px 20px 0;
+        display:none;
     }
     .box-weekly-main-item1>div:nth-child(3)>div:nth-child(1){
         width:520px;
@@ -334,8 +365,10 @@
         background: #ceae78;
         font-size:24px;
     }
+    /*甄选独立套餐显示与隐藏*/
     .box-weekly-main-item1>div:nth-child(4){
         padding: 20px 20px;
+        display:none;
     }
     .box-weekly-main-item1>div:nth-child(4)>h4{
         font-size:25px;
@@ -368,6 +401,15 @@
         font-size:25px;
         margin-bottom:8px;
         color: #868996;
+    }
+    .box-weekly-main-item1>div:nth-child(5)>ul{
+        overflow: hidden;
+        overflow-x: auto;
+        white-space: nowrap;
+        font-size: 0;
+    }
+    .box-weekly-main-item1>div:nth-child(5)>ul>li{
+        display:inline-block;
     }
     .box-weekly-main-item2>div:nth-child(1){
         width:100%;
@@ -427,6 +469,87 @@
     }
     .box-weekly-main-item3>ul>li{
         display: inline-block;
+    }
+    .box-weekly-main-item3>p{
+        text-align:center;
+        padding-top:32px;
+    }
+    .box-weekly-main-item3>p>a{
+        font-size:24px;
+        text-decoration: underline;
+        color: #000000;
+    }
+    .box-weekly-main-item4{
+        width:100%;
+        height:120px;
+        margin-top:20px;
+        position:fixed;
+        bottom:108px;
+    }
+    .box-weekly-main-item4>div:nth-child(1){
+        width:100%;
+        height:20px;
+        background-color:white;
+    }
+    .box-weekly-middle{
+        width:100%;
+        height:20px;
+        background-color:#f9f9f9;
+        margin-top:20px;
+    }
+    .inner{
+        width:100%;
+        height:calc(100% - 20px);
+        background-color:white;
+    }
+    .inner>a{
+        font-size:25px;
+    }
+    .inner>a::before{
+        content: '';
+        position: absolute;
+        width:40px;
+        height:40px;
+        background: url(../assets/img/icons3.png) no-repeat center;
+        background-size:400px 400px;
+        top: 60%;
+        margin-top: -20px;
+        background-position: -160px -80px;
+        left: 7%;
+        margin-left: -20px;
+    }
+    .inner>a::after{
+        position: absolute;
+        width:80px;
+        height:32px;
+        line-height:32px;
+        content: ' 全选 ';
+        top: 58%;
+        margin-top: -16px;
+        left:72px;
+    }
+    .inner>div:nth-child(2){
+         height:100%;
+         width:200px;
+         background-color:#ff4001;
+         float:right;
+        text-align:center;
+        line-height:100px;
+        color:white;
+        font-size:25px;
+        font-weight: normal;
+     }
+    .inner>div:nth-child(3){
+        height:100%;
+        width:200px;
+        float:right;
+        line-height:100px;
+        text-align:center;
+    }
+    .inner>div:nth-child(3)>span>p{
+        display:inline-block;
+        font-size:25px;
+        font-weight: bold;
     }
 
 
