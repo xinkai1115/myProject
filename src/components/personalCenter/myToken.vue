@@ -2,13 +2,37 @@
     <div class="wrap4">
         <router-view></router-view>
       <div class="mind">
-          <a href="#" class="active">优惠券</a>
+          <a href="#" class="active">优惠券<i>(1)</i></a>
           <router-link to="/index/mytoken/couponCake">蛋糕卡</router-link>
       </div>
         <div class="notice">
             <a href="#" @click="show=true">优惠券须知</a>
         </div>
         <div class="no-card">您还没有优惠券哦</div>
+        <div class="card">
+            <ul>
+                <li>
+                    <div class="info">
+                        <h3><small>￥</small>80</h3>
+                        <div class="info-detail">
+                            <p>新人专享80元蛋糕立减券</p>
+                            <p>有效期:2018.3.10 - 2018.12.12</p>
+                            <p><i class="info-detail-rule" @click="show2=!show2">使用规则<img src="../../assets/img/coupon_arr.png" alt=""></i><a href="#">立即使用</a></p>
+                        </div>
+                    </div>
+                    <div class="rule" v-if="show2">
+                        <p>活动时间：即日起至2018年12月30日</p>
+                        <p>配送时间：即日起至2018年12月31日</p>
+                        <p>适用商品：全场蛋糕（除雪域系列，流心千层系列，丝绒玫瑰蛋糕，莓果缤纷蛋糕，新品，礼品馆外）。</p>
+                        <p>配送区域：诺心可配送范围区域，具体配送范围及收费标准以下单信息为准</p>
+                        <p>参与规则：</p>
+                        <p>1.活动期间，订购诺心蛋糕满298元立减80元（除雪域系列，流心千层系列，丝绒玫瑰蛋糕，莓果缤纷蛋糕，新品，礼品馆外）。</p>
+                        <p>2.此次活动仅限线上支付，储值卡、蛋糕卡、银行优惠等不与本活动同享。</p>
+                    </div>
+                </li>
+                <li></li>
+            </ul>
+        </div>
         <router-link class="button" to="/index/mytoken/couponCard"><a href="#">查看历史卡券</a></router-link>
         <div class="wrap5" v-if="show">
            <div>
@@ -29,7 +53,8 @@
         name: "myToken",
         data(){
             return {
-                show:false
+                show:false,
+                show2:false
             }
         }
 
@@ -75,7 +100,57 @@
         text-align:center;
         color:#9b9b9b;
         font-size:25px;
+        display:none;
     }
+    .card>ul{
+        list-style:none;
+    }
+    .card>ul>li{
+        border: none;
+        margin: 0;
+        padding: 10px 15px 15px;
+        border-bottom: 1px solid #d1c6af;
+    }
+    .card>ul>li:nth-child(1)>.info{
+
+    }
+    .card>ul>li:nth-child(1)>.info>h3{
+        width:200px;
+        height:110px;
+        background-color:white;
+        text-align:center;
+        line-height:110px;
+        color:red;
+        font-size:48px;
+        display:inline-block;
+        vertical-align:middle;
+        background-color:lightgray;
+    }
+   .info-detail{
+       width:calc(100% - 200px);
+       display:inline-block;
+       vertical-align:middle;
+   }
+   .info-detail-rule>img{
+       width:20px;
+       height:10px;
+   }
+   .info-detail>p{
+       width:calc(100% - 20px);
+       line-height:35px;
+       padding:0 10px;
+   }
+   .info-detail>p:nth-child(3)>a{
+       text-align:right;
+       float:right;
+       border:1px solid red;
+       border-radius:10px;
+       color:red;
+   }
+   .rule{
+       width:100%;
+       color:#9b9b9b;
+   }
     .button{
         width:100%;
         background-color:#9c9c9c;

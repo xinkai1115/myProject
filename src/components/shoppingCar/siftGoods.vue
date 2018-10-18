@@ -1,25 +1,26 @@
 <template>
     <div class="box2">
-        <a href="#"><img src="../../assets/img/list1.jpg" alt=""></a>
-        <h3>熊抱原味匠心吐司(半条)</h3>
+        <a href="#"><img src="../../assets/img/list2.jpg" alt=""></a>
+        <h3>乐可可旋转烛灯</h3>
         <h4><b>￥38</b><i></i></h4>
     </div>
 </template>
 
 <script>
     export default {
-        name: "smallGoods"
+        name: "siftGoods"
     }
 </script>
 
 <style scoped>
-   .box2{
-       display: inline-block;
-       position: relative;
-       margin-left:12px;
-       width:200px;
-       text-align: center;
-   }
+    .box2{
+        display: inline-block;
+        position: relative;
+        margin-left:12px;
+        width:200px;
+        text-align: center;
+        float:left;
+    }
     .box2>a{
         display: block;
         margin-bottom:4px;
@@ -31,7 +32,7 @@
         position: relative;
         left: 50%;
         top: 50%;
-         transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
         -webkit-transform: translate(-50%, -50%);
     }
     .box2>h3{
@@ -39,7 +40,6 @@
         line-height:28px;
         height:56px;
         white-space: initial;
-        color: #ceae78;
     }
     .box2>h4{
         font-size:22px;
@@ -64,7 +64,7 @@
         background-size:400px 400px;
         top: 50%;
         margin-top: -20px;
-        background-position: -160px -280px;
+        background-position: -240px -40px;
         left: 50%;
         margin-left: -20px;
     }

@@ -102,7 +102,8 @@
               </li>
           </ul>
         </section>
-        <section class="comment_section">
+        <section class="comm
+        ent_section">
           <h2>用户评论</h2>
           <ul class="comment_list">
             <div class="comment_item">
