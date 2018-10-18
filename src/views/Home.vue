@@ -13,22 +13,22 @@
       </header>
       <div class="main">
         <div>
-          <section class="coupon_header">
+          <section @click="login" class="coupon_header">
             【 先领券 后下单 】
           </section>
-          <div class="main_login_pop">
+          <div class="main_login_pop" v-show="isLogin" >
             <div class="main">
-              <a href="javascript:void(0)" class="close_login_pop">关闭</a>
+              <a href="javascript:void(0)" @click="isLogin=false" class="close_login_pop">关闭</a>
               <div class="form_wrap">
                 <p class="input_wrap mobile_wrap">
-                  <input type="tel" placeholder="请输入手机号" maxlength="11">
+                  <input type="tel" ref="num" placeholder="请输入手机号" maxlength="11">
                 </p>
                 <p class="input_wrap yzm_wrap">
-                  <input type="text" placeholder="验证码" maxlength="4">
-                  <span>12we</span>
+                  <input type="text" placeholder="验证码" ref="code" maxlength="4">
+                  <span>{{randomNum}}</span>
                 </p>
                 <div class="bottom">
-                  <button class="btn">登录</button>
+                  <button class="btn" @click="confirmLogin" >登录</button>
                 </div>
               </div>
             </div>
@@ -63,33 +63,43 @@
             <img src="../assets/img/g.jpg" alt="">
           </a>
         </section>
+        <!--蛋糕馆-->
         <section class="cake_section">
           <h2>
-            <a href="">蛋糕馆</a>
+            <router-link to="/list">蛋糕馆</router-link>
           </h2>
           <ul class="p_list">
-            <GoodsMain class="p_item"></GoodsMain>
-            <GoodsMain class="p_item"></GoodsMain>
-            <GoodsMain class="p_item"></GoodsMain>
-            <GoodsMain class="p_item"></GoodsMain>
-            <GoodsMain class="p_item"></GoodsMain>
-            <GoodsMain class="p_item"></GoodsMain>
-            <GoodsMain class="p_item"></GoodsMain>
-            <GoodsMain class="p_item"></GoodsMain>
+            <li class="p_item" v-for="(item,index) in cakeData" :key="index" >
+              <GoodsMain  :goodsData="item" ></GoodsMain>
+            </li>
           </ul>
         </section>
+        <!--吐司馆-->
         <div class="gift_wrap">
-          <a href="">
-            <img src="../assets/img/o.jpg" alt="">
-          </a>
+          <router-link :to="{path:'/list',query:{uid:100}}"  >
+            <img src="//newimgcdn.lapetit.cn/h5/images/home/toast.jpg?03" alt="">
+          </router-link>
         </div>
         <section class="gift_section">
-          <h2><a href="">礼品馆</a></h2>
+          <h2><router-link :to="{path:'/list',query:{uid:100}}">吐司馆</router-link></h2>
           <ul class="p_list">
-            <GoodsMain class="p_item"></GoodsMain>
-            <GoodsMain class="p_item"></GoodsMain>
-            <GoodsMain class="p_item"></GoodsMain>
-            <GoodsMain class="p_item"></GoodsMain>
+            <li v-for="(item,index) in toastData" :key="index" class="p_item" >
+              <GoodsMain  :goodsData="item" ></GoodsMain>
+            </li>
+          </ul>
+        </section>
+        <!--礼品馆-->
+        <div class="gift_wrap">
+          <router-link  :to="{path:'/list',query:{uid:1000}}" >
+            <img src="../assets/img/o.jpg" alt="">
+          </router-link>
+        </div>
+        <section class="gift_section">
+          <h2><router-link :to="{path:'/list',query:{uid:1000}}">礼品馆</router-link></h2>
+          <ul class="p_list">
+              <li v-for="(item,index) in giftData" :key="index" class="p_item" >
+                <GoodsMain  :goodsData="item" ></GoodsMain>
+              </li>
           </ul>
         </section>
         <section class="comment_section">
@@ -487,24 +497,58 @@ export default {
   },
     data(){
       return {
-          a : true
+          a : true,
+          isLogin:false,
+          randomNum:"",
+          cakeData:null,
+          toastData:null,
+          giftData:null
       }
     },
     methods:{
       aaa(){
           this.a=true
-      }
+      },
+        login(){
+          this.isLogin = true;
+          var arr = [1,2,3,4,5,6,7,8,9,0,"a","b","c","d","q","w","e","r","t","y","s","g","h","j","k"];
+          var out = [];
+          while(out.length < 4) {
+              var temp = parseInt(Math.random() * arr.length);
+              console.log(temp);
+              out.push(arr[temp]);
+          }
+          this.randomNum = out.join("");
+        },
+        confirmLogin(){
+          let userName = this.$refs.num.value;
+          var code = this.$refs.code.value;
+            console.log(code);
+            if(this.randomNum == code){
+                console.log("登录成功");
+            }else{
+                console.log("登录失败");
+            }
+        }
+    },
+    created(){
+        this.$http.get(`${this.$api}/list`).then(({data})=>{
+            var arr = data.slice(0,8)
+            console.log(arr);
+            this.cakeData = arr;
+        })
+        this.$http.get(`${this.$api}/list?uid=1000`).then(({data})=>{
+            var arr = data.slice(0,4)
+            console.log(arr);
+            this.giftData = arr;
+        })
+        this.$http.get(`${this.$api}/list?uid=100`).then(({data})=>{
+            var arr = data.slice(0,4)
+            console.log(arr);
+            this.toastData = arr;
+        })
     },
     mounted(){
-        var close_login_pop = document.querySelector(".close_login_pop");
-        var main_login_pop = document.querySelector(".main_login_pop");
-        var coupon_header = document.querySelector(".coupon_header");
-        coupon_header.onclick = function(){
-            main_login_pop.style.display = "block";
-        }
-        close_login_pop.onclick = function () {
-            main_login_pop.style.display = "none";
-        }
         var mySwiper = new Swiper ('.swiper-container', {
             loop: true,
             delay: 500,
@@ -853,7 +897,6 @@ export default {
     left: 0;
     top: 0;
     z-index: 101;
-    display: none;
   }
   .main_login_pop .main {
     background: #ffffff;

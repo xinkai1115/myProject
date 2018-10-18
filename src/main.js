@@ -8,7 +8,7 @@ import 'swiper/dist/css/swiper.css'
 import axios from 'axios'
 
 import $ from "jquery"
-Vue.prototype.$http = axios;
+Vue.prototype.$http = axios
 Vue.prototype.$api = "/api"
 
 import VueAwesomeSwiper from 'vue-awesome-swiper'
@@ -19,6 +19,7 @@ Vue.use(VueAwesomeSwiper)
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.prototype.$api = "/api"
+
 
 new Vue({
   router,
