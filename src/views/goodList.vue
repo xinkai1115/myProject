@@ -5,11 +5,11 @@
                     <div class="global_header">
                         <Handlerbtn></Handlerbtn>
                         <h1 class="clear_fix">
-                            <a class="active" href="javascript:void(0)">综合</a>
-                            <a href="javascript:void(0)">销量</a>
-                            <a href="javascript:void(0)">上新</a>
+                            <a class="active" @click="changeSort('default')" href="javascript:void(0)">综合</a>
+                            <a href="javascript:void(0)" @click="changeSort('hot')" >销量</a>
+                            <a href="javascript:void(0)" @click="changeSort('new')" >上新</a>
                         </h1>
-                        <a @click="show = !show" href="javascript:void(0)" class="filter_btn">筛选</a>
+                        <a v-show="isChoose" @click="show = !show" href="javascript:void(0)" class="filter_btn">筛选</a>
                     </div>
                 </div>
             </header>
@@ -20,40 +20,32 @@
                             <h2>筛选</h2>
                             <dl class="clear_fix taste">
                                 <dt>口味</dt>
-                                <dd>鲜果口味</dd>
-                                <dd>雪域口味</dd>
-                                <dd>奶油口味</dd>
-                                <dd>冰淇淋味</dd>
-                                <dd>巧克力味</dd>
-                                <dd>慕斯口味</dd>
-                                <dd>芝士口味</dd>
+                                <dd @click="chooseTaste" >鲜果口味</dd>
+                                <dd @click="chooseTaste" >雪域口味</dd>
+                                <dd @click="chooseTaste" >奶油口味</dd>
+                                <dd @click="chooseTaste" >冰淇淋味</dd>
+                                <dd @click="chooseTaste" >巧克力味</dd>
+                                <dd @click="chooseTaste" >慕斯口味</dd>
+                                <dd @click="chooseTaste" >芝士口味</dd>
                             </dl>
                             <div class="btn_wrap">
-                                <a @click="show = !show" href="javascript:void(0)" id="resetBtn">重置</a>
-                                <a @click="show = !show" href="javascript:void(0)" id="submitBtn">确定</a>
+                                <a @click="getToast" href="javascript:void(0)" id="resetBtn">重置</a>
+                                <a  @click="getToast" href="javascript:void(0)" id="submitBtn">确定</a>
                             </div>
                         </div>
                     </transition>
                 </section>
             <section class="goods_list">
                 <ul class="p_list clear_fix lazy_load_wrap">
-                    <GoodsMain></GoodsMain>
-                    <GoodsMain></GoodsMain>
-                    <GoodsMain></GoodsMain>
-                    <GoodsMain></GoodsMain>
-                    <GoodsMain></GoodsMain>
-                    <GoodsMain></GoodsMain>
-                    <GoodsMain></GoodsMain>
-                    <GoodsMain></GoodsMain>
-                    <GoodsMain></GoodsMain>
-                    <GoodsMain></GoodsMain>
-                    <GoodsMain></GoodsMain>
-                    <GoodsMain></GoodsMain>
+                    <li  v-for="(item,index) in data" :key="index" @click="goToGoodsDetail(item._id)"  >
+                        <GoodsMain :goodsData="item" ></GoodsMain>
+                    </li>
                 </ul>
                 <div class="bottom_text">
                     <p>没有更多产品咯</p>
                 </div>
-                <a href="javascript:void(0)" class="global_back_top"></a>
+                <!--<a href="javascript:void(0)" @click="toTop" class="global_back_top"></a>-->
+                <scroll-top></scroll-top>
             </section>
             <GoodsDetail class="goos"></GoodsDetail>
         </article>
@@ -62,19 +54,64 @@
 <script>
     import Handlerbtn from '../components/home/handler_btn'
     import GoodsMain from '../components/goodsMain'
+<<<<<<< HEAD
 
     import  GoodsDetail from "../components/goodsDetail"
 
+=======
+    import ScrollTop from '../components/goodsList/scrollTop'
+>>>>>>> 1701961b128b9edc81af7e1ee95cd0b528c67c38
     export default {
         name: "goodList",
         components: {
             Handlerbtn,
             GoodsMain,
+<<<<<<< HEAD
             GoodsDetail
+=======
+            "scroll-top":ScrollTop
+
+>>>>>>> 1701961b128b9edc81af7e1ee95cd0b528c67c38
         },
         data(){
             return {
-                show:false
+                show:false,
+                sort:"default",
+                uid:"",
+                data:null,
+                toast:"",
+                isChoose:false
+            }
+        },
+        methods:{
+            // 点击销量，上新，综合，请求到不同的数据
+            changeSort(e){
+                console.log(e);
+                this.$http.get(`${this.$api}/list?uid=${this.uid}&sort=${e}`).then(({data})=>{
+                    console.log(data)
+                    this.data = data;
+                })
+                window.scrollTo(0,0);
+            },
+            //点击 口味 让其作为当前状态值
+            chooseTaste(e){
+                this.toast = e.target.innerText;
+            },
+            //点击确认口味按钮，或取消按钮，通过其存储的状态值 请求相应数据
+            getToast(e){
+                this.show = !this.show;
+                var con = e.target.innerText;
+                if(con == "确定"){
+                    this.$http.get(`${this.$api}/list?taste=${this.toast}`).then(({data})=>{
+                        this.data = data;
+                    })
+                }else{
+                    this.toast = "";
+                }
+            },
+            //进入商品详情页
+            goToGoodsDetail(goodsId){
+                console.log(goodsId);
             }
         },
         mounted(){
@@ -101,9 +138,25 @@
             }
         },
         created() {
-            this.$http.get(`${this.$api}/list?uid=100`).then(({data})=>{
+            var uid = this.$route.query.uid;
+            this.uid=uid;
+            this.$http.get(`${this.$api}/list?uid=${uid}`).then(({data})=>{
                 console.log(data)
+                this.data = data;
             })
+        },
+        watch:{
+            $route(){
+                var uid = this.$route.query.uid;
+                this.uid=uid;
+                this.isChoose = this.uid=="1000"?false:true;
+                this.$http.get(`${this.$api}/list?uid=${uid}`).then(({data})=>{
+                    console.log(data)
+                    this.data = data;
+                })
+
+
+            }
         }
     }
 </script>
@@ -280,11 +333,11 @@
         padding: 30px;
         overflow: hidden;
     }
-    .p_list div:nth-of-type(odd){
+    .p_list li:nth-of-type(odd){
         width: 48%;
         float: left;
     }
-    .p_list div:nth-of-type(even){
+    .p_list li:nth-of-type(even){
         width: 48%;
         float: right;
     }
