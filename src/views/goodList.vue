@@ -55,17 +55,22 @@
                 </div>
                 <a href="javascript:void(0)" class="global_back_top"></a>
             </section>
+            <GoodsDetail class="goos"></GoodsDetail>
         </article>
 </template>
 
 <script>
     import Handlerbtn from '../components/home/handler_btn'
     import GoodsMain from '../components/goodsMain'
+
+    import  GoodsDetail from "../components/goodsDetail"
+
     export default {
         name: "goodList",
         components: {
             Handlerbtn,
-            GoodsMain
+            GoodsMain,
+            GoodsDetail
         },
         data(){
             return {
@@ -327,5 +332,13 @@
         -webkit-background-size: 100% 100%;
         background-size: 100% 100%;
         /*display: none;*/
+    }
+    .goos{
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 100000;
     }
 </style>
