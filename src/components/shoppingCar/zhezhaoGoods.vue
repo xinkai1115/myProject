@@ -217,7 +217,6 @@
         position: fixed;
         bottom: 0;
         left: 0;
-        background-color:red;
     }
     .desc_footer>button{
         width: 50%;

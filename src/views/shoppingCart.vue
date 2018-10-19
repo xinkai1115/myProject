@@ -1,7 +1,9 @@
 <template>
     <div class="box">
+        <router-view></router-view>
         <CheckMore v-if="show2"></CheckMore>
         <ChoseGoods></ChoseGoods>
+        <div class="a">
         <div class="box-header">
             <img src="../assets/img/empty.png" alt="">
             <p>您还没有选购您的商品</p>
@@ -29,8 +31,8 @@
                 <div class="box-weekly-main-item1">
                     <div>熊抱吐司加价购</div>
                     <div>
-                        <a href="#"><span>甄选独立装</span></a>
-                        <a href="#"><span>周周配套餐</span></a>
+                        <a href="javascript:void(0)"><span>甄选独立装</span></a>
+                        <a href="javascript:void(0)"><span>周周配套餐</span></a>
                     </div>
                     <!--切换周周配套餐-->
                     <div>
@@ -110,13 +112,14 @@
                     <div></div>
                     <div class="inner">
                         <a href="#"></a>
-                        <div>结算</div>
+                        <div @click=""><router-link to="/cart/settle">结算</router-link></div>
                         <div>
                             <span>应付:￥<p>210</p></span>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </template>

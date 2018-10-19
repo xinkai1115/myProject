@@ -1,34 +1,34 @@
 <template>
-        <div>
-            <a href="#" class="auto_height">
-                <img :src="goodsData.goodsImg" alt="">
-            </a>
-                <div class="p_info">
-                    <h3 class="p_name">雪域牛乳芝士蛋糕</h3>
-                    <h4 class="p_tag "><span class="tag">人气爆款</span></h4>
-                    <div class="price_wrap">
-                        <p class="new_price">
-                            <small>¥</small>
-                            198
-                        </p>
-                    </div>
-                </div>
-        </div>
-    <!--<div>-->
-        <!--<a href="" class="auto_height">-->
-            <!--<img src="../assets/img/a.jpg" alt="">-->
-        <!--</a>-->
-        <!--<div class="p_info">-->
-            <!--<h3 class="p_name">雪域牛乳芝士蛋糕</h3>-->
-            <!--<h4 class="p_tag "><span class="tag">人气爆款</span></h4>-->
-            <!--<div class="price_wrap">-->
-                <!--<p class="new_price">-->
-                    <!--<small>¥</small>-->
-                    <!--198-->
-                <!--</p>-->
-            <!--</div>-->
+        <!--<div>-->
+            <!--<a href="#" class="auto_height">-->
+                <!--<img :src="goodsData.goodsImg" alt="">-->
+            <!--</a>-->
+                <!--<div class="p_info">-->
+                    <!--<h3 class="p_name">雪域牛乳芝士蛋糕</h3>-->
+                    <!--<h4 class="p_tag "><span class="tag">人气爆款</span></h4>-->
+                    <!--<div class="price_wrap">-->
+                        <!--<p class="new_price">-->
+                            <!--<small>¥</small>-->
+                            <!--198-->
+                        <!--</p>-->
+                    <!--</div>-->
+                <!--</div>-->
         <!--</div>-->
-    <!--</div>-->
+    <div>
+        <a href="" class="auto_height">
+            <img src="../assets/img/a.jpg" alt="">
+        </a>
+        <div class="p_info">
+            <h3 class="p_name">雪域牛乳芝士蛋糕</h3>
+            <h4 class="p_tag "><span class="tag">人气爆款</span></h4>
+            <div class="price_wrap">
+                <p class="new_price">
+                    <small>¥</small>
+                    198
+                </p>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
