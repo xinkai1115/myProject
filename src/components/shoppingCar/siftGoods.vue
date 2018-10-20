@@ -1,19 +1,22 @@
 <template>
-    <div class="box2">
-        <a href="#"><img src="../../assets/img/list2.jpg" alt=""></a>
-        <h3>乐可可旋转烛灯</h3>
-        <h4><b>￥38</b><i></i></h4>
+    <div class="boxx">
+        <a href="#"><img :src="mountings.goodsImg" alt=""></a>
+        <h3>{{mountings.goodsName}}</h3>
+        <h4><b>￥{{mountings.goodsPrice}}</b><i></i></h4>
     </div>
 </template>
 
 <script>
     export default {
-        name: "siftGoods"
+        name: "siftGoods",
+        props:{
+            mountings:Object
+        }
     }
 </script>
 
 <style scoped>
-    .box2{
+    .boxx{
         display: inline-block;
         position: relative;
         margin-left:12px;
@@ -21,13 +24,13 @@
         text-align: center;
         float:left;
     }
-    .box2>a{
+    .boxx>a{
         display: block;
         margin-bottom:4px;
         width: 100%;
         height:200px;
     }
-    .box2>a>img{
+    .boxx>a>img{
         max-height: 100%;
         position: relative;
         left: 50%;
@@ -35,18 +38,18 @@
         transform: translate(-50%, -50%);
         -webkit-transform: translate(-50%, -50%);
     }
-    .box2>h3{
+    .boxx>h3{
         font-size:22px;
         line-height:28px;
         height:56px;
         white-space: initial;
     }
-    .box2>h4{
+    .boxx>h4{
         font-size:22px;
         line-height:40px;
         height:40px;
     }
-    .box2>h4>i{
+    .boxx>h4>i{
         display: inline-block;
         margin-left:6px;
         width:24px;
@@ -55,7 +58,7 @@
         vertical-align: middle;
         cursor: pointer;
     }
-    .box2>h4>i:before{
+    .boxx>h4>i:before{
         content: '';
         position: absolute;
         width:40px;

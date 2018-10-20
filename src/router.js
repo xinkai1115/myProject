@@ -20,6 +20,7 @@ import BindCard from "./components/personalCenter/myCard/bindCard"
 import SettleGoods from "./components/shoppingCar/settleGoods"
 import SiteGoods from "./components/shoppingCar/siteGoods"
 import NewsiteGoods from "./components/shoppingCar/newsiteGoods"
+import CheckMore from "./components/shoppingCar/CheckMore"
 
 
 Vue.use(Router)
@@ -59,8 +60,14 @@ export default new Router({
                     path:'/cart/settle/site/newsite',
                     component:NewsiteGoods
                 }]
-            }]
-        }]
+            }
+            ]
+        },
+        {
+            path:'/cart/checkmore',
+            component:CheckMore
+        }
+        ]
     },
     {
         path: '/index',
