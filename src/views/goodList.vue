@@ -55,7 +55,6 @@
     import Handlerbtn from '../components/home/handler_btn'
     import GoodsMain from '../components/goodsMain'
     import  GoodsDetail from "../components/goodsDetail"
-
     import ScrollTop from '../components/goodsList/scrollTop'
     export default {
         name: "goodList",
@@ -64,7 +63,6 @@
             GoodsMain,
             GoodsDetail,
             "scroll-top":ScrollTop
-
         },
         data(){
             return {

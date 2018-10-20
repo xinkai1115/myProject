@@ -9,7 +9,8 @@
         <div class="main-box">
             <div class="main-box-list">
                 <div class="main-box-list-wrap">
-                    <div @click="show4=!show4">
+                    <div @click="showDel">
+                    <div @click="show4=true">
                         <span></span>
                         <p><img src="../../assets/img/list4.jpg" alt=""></p>
                         <div>
@@ -90,7 +91,7 @@
             </div>
         </div>
         <div class="main-footer"><button>立即购买</button></div>
-        <ZhezhaoGoods v-if="show4"></ZhezhaoGoods>
+        <ZhezhaoGoods :boolen1="show4" @change1="goToDel" ></ZhezhaoGoods>
     </div>
 </template>
 
@@ -100,6 +101,14 @@
         name: "CheckMore",
         components:{
             ZhezhaoGoods
+        },
+        methods:{
+            showDel(){
+                this.show4 = true;
+            },
+            goToDel(){
+                this.show4 = false;
+            }
         },
         data(){
             return {

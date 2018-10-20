@@ -17,6 +17,9 @@ import MyLeclub from "./components/personalCenter/myLeclub"
 import CouponCake from "./components/personalCenter/myCoupon/couponCake"
 import  CouponCard from "./components/personalCenter/myCoupon/couponCard"
 import BindCard from "./components/personalCenter/myCard/bindCard"
+import SettleGoods from "./components/shoppingCar/settleGoods"
+import SiteGoods from "./components/shoppingCar/siteGoods"
+import NewsiteGoods from "./components/shoppingCar/newsiteGoods"
 
 
 Vue.use(Router)
@@ -45,7 +48,19 @@ export default new Router({
     {
         path: '/cart',
         name: 'ShoppingCart',
-        component:ShoppingCart
+        component:ShoppingCart,
+        children:[{
+            path:'/cart/settle',
+            component:SettleGoods,
+            children:[{
+                path:'/cart/settle/site',
+                component:SiteGoods,
+                children:[{
+                    path:'/cart/settle/site/newsite',
+                    component:NewsiteGoods
+                }]
+            }]
+        }]
     },
     {
         path: '/index',
