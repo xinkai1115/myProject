@@ -13,7 +13,7 @@
                            <img src="../../assets/img/list5.jpg" alt="">
                        </div>
                        <div class="desc_wrap">
-                           <p>诺心派对礼包(A款)</p>
+                           <p>{{detail.goodsName}}</p>
                            <div>
                                <p><small>￥</small>58元</p>
                                <p><small>￥</small>38</p>
@@ -23,17 +23,9 @@
                        <div class="goods_desc">
                            <div class="desc_col">
                                <h2>找寻心中的美好</h2>
-                               <img class="img_con" src="../../assets/img/list6.jpg" alt="">
-                               <img class="img_con" src="../../assets/img/list6.jpg" alt="">
-                               <!--<div><img src="../../assets/img/list6.jpg" alt=""></div>-->
-                               <!--<div>-->
-                               <!--<h2>温馨提示</h2>-->
-                               <!--<div>-->
-                               <!--<p>-->
-                               <!--本品不可食用，未成年人请在家长看护下使用-->
-                               <!--</p>-->
-                               <!--</div>-->
-                               <!--</div>-->
+                               <img class="img_con" :src="'http://wx01.lecake.com'+detail.searchDec.imgUrl" alt="">
+                               <img v-if="detail.searchDec.detilUrl" class="img_con" alt="" v-for="(item,index) in detail.searchDec.detilUrl"
+                                    :key="index" :src="'http://wx01.lecake.com'+item" >
                            </div>
                        </div>
                    </div>
@@ -54,6 +46,35 @@
             boolen1:{
                 type:Boolean,
                 default:false
+            },
+            detail:{
+                type:Object,
+                default(){
+                   return {
+                       _id : "5bc8741690984b20be9e60af",
+                       type : "upPriceAarea",
+                       goodsImg : "https://imagecdn.lapetit.cn/postsystem/docroot/images/goods/201808/17633/list_17633.jpg?v=1535957773",
+                       goodsName : "个性字母透明挎包",
+                       goodsPrice : "45",
+                       goodsLabel : [],
+                       lowPrice: "34",
+                       goodsLargeUrl: [
+                           "https://imagecdn.lapetit.cn/postsystem/docroot/images/goods/D0D189A0121F122E4E18FB54A8652FFF.jpg"
+                       ],
+                       goodsStandard: "200ml*6瓶",
+                       warmPrompt : "",
+                       searchDec : {
+                           title : "找寻心中的美味",
+                           imgUrl : "/postsystem/docroot/images/promotion/201808/wap提炼图（杏+燕麦）.jpg",
+                           detilUrl: [
+                               "/postsystem/docroot/images/promotion/201808/1.jpg",
+                               "/postsystem/docroot/images/promotion/201808/3.jpg",
+                               "/postsystem/docroot/images/promotion/201808/4.jpg"
+                           ]
+                       }
+                   }
+                }
+
             }
         },
         data(){
@@ -66,8 +87,6 @@
             change(){
                 this.$emit("change1")
             }
-        },
-        created(){
         }
     }
 </script>

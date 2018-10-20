@@ -131,15 +131,9 @@
                     <div></div>
                     <h2>精品配件</h2>
                     <ul>
-                        <li><SiftGoods></SiftGoods></li>
-                        <li><SiftGoods></SiftGoods></li>
-                        <li><SiftGoods></SiftGoods></li>
-                        <li><SiftGoods></SiftGoods></li>
-                        <li><SiftGoods></SiftGoods></li>
-                        <li><SiftGoods></SiftGoods></li>
-                        <li><SiftGoods></SiftGoods></li>
-                        <li><SiftGoods></SiftGoods></li>
-                        <li><SiftGoods></SiftGoods></li>
+                        <li v-for="(item,index) in mountingData" :key="index">
+                            <SiftGoods :mountings="item"></SiftGoods>
+                        </li>
                     </ul>
                 </div>
                 <!--加价区-->
@@ -147,17 +141,11 @@
                     <div></div>
                     <h2>加价购</h2>
                     <ul>
-                        <li><SiftGoods></SiftGoods></li>
-                        <li><SiftGoods></SiftGoods></li>
-                        <li><SiftGoods></SiftGoods></li>
-                        <li><SiftGoods></SiftGoods></li>
-                        <li><SiftGoods></SiftGoods></li>
-                        <li><SiftGoods></SiftGoods></li>
-                        <li><SiftGoods></SiftGoods></li>
-                        <li><SiftGoods></SiftGoods></li>
-                        <li><SiftGoods></SiftGoods></li>
+                        <li v-for="(item ,index) in upPriceData" :key="index" >
+                            <SiftGoods :mountings="item" ></SiftGoods>
+                        </li>
                     </ul>
-                    <p><a href="#" >查看更多</a></p>
+                    <p><router-link to="/cart/checkmore" >查看更多</router-link></p>
                 </div>
                 <div class="box-weekly-middle"></div>
                 <!--结算去-->
@@ -178,7 +166,7 @@
 
 <script>
     import GoodsMain from "../components/goodsMain"
-    import CheckMore from "../components/shoppingCar/CheckMore"
+    // import CheckMore from "../components/shoppingCar/CheckMore"
     //ChoseGoods是加入购物车的商品组件
     import MoreGoods from "../components/shoppingCar/moreGoods"
     import SiftGoods from "../components/shoppingCar/siftGoods"
@@ -189,9 +177,7 @@
         components:{
             GoodsMain,
             MoreGoods,
-            SiftGoods,
-            CheckMore
-
+            SiftGoods
         },
         data(){
             return {
@@ -199,7 +185,9 @@
                 isSetMeal:false, //控制 显示吐司套餐
                 toastData:null, //独立装吐司数据
                 setMealCon:null, //套餐装吐司数据
-                recomGoods:null //推荐商品
+                recomGoods:null,//推荐商品
+                mountingData:null,//存储精品配件区的数据
+                upPriceData:null//存储加价区商品的数据
             }
         },
         computed:{
@@ -217,7 +205,6 @@
                 $($event.target).attr("class",'active')
                 this.$http.get(`${this.$api}/toast?setMeal=${test}`).then(({data})=>{
                     this.setMealCon = data;
-                    console.log(data);
                 })
             }
         },
@@ -227,10 +214,16 @@
             })
             this.$http.get(`${this.$api}/toast?setMeal=one`).then(({data})=>{
                 this.setMealCon = data;
-                console.log(this.setMealCon);
+                // console.log(this.setMealCon);
             })
             this.$http.get(`${this.$api}/list`).then(({data})=>{
                 this.recomGoods = data.splice(0,4);
+            })
+            this.$http.get(`${this.$api}/mounting`).then(({data})=>{
+                this.mountingData = data;
+            })
+            this.$http.get(`${this.$api}/upPrice`).then(({data})=>{
+                this.upPriceData = data;
             })
         }
     }

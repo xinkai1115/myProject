@@ -1,89 +1,22 @@
 <template>
-    <div class="main" v-if="show3">
+    <div class="main" >
         <div class="header">
             <div class="header-div1">
-                <a href="#" @click="show3=false"></a>
+                <a href="#" @click="goBack"></a>
                 <h1>商品列表</h1>
             </div>
         </div>
         <div class="main-box">
             <div class="main-box-list">
                 <div class="main-box-list-wrap">
-                    <div @click="showDel">
-                    <div @click="show4=true">
+                    <div @click="showDel(item._id)" v-for="(item,index) in upPriceData" :key="index">
                         <span></span>
-                        <p><img src="../../assets/img/list4.jpg" alt=""></p>
+                        <p><img :src="item.goodsImg" alt=""></p>
                         <div>
-                            <p>诺心派对礼包(A款)</p>
+                            <p>{{item.goodsName}}</p>
                             <div>
-                                <p><small>￥</small>58元</p>
-                                <p><small>￥</small>38</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <span></span>
-                        <p><img src="../../assets/img/list4.jpg" alt=""></p>
-                        <div>
-                            <p>诺心派对礼包(A款)</p>
-                            <div>
-                                <p><small>￥</small>58元</p>
-                                <p><small>￥</small>38</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <span></span>
-                        <p><img src="../../assets/img/list4.jpg" alt=""></p>
-                        <div>
-                            <p>诺心派对礼包(A款)</p>
-                            <div>
-                                <p><small>￥</small>58元</p>
-                                <p><small>￥</small>38</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <span></span>
-                        <p><img src="../../assets/img/list4.jpg" alt=""></p>
-                        <div>
-                            <p>诺心派对礼包(A款)</p>
-                            <div>
-                                <p><small>￥</small>58元</p>
-                                <p><small>￥</small>38</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <span></span>
-                        <p><img src="../../assets/img/list4.jpg" alt=""></p>
-                        <div>
-                            <p>诺心派对礼包(A款)</p>
-                            <div>
-                                <p><small>￥</small>58元</p>
-                                <p><small>￥</small>38</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <span></span>
-                        <p><img src="../../assets/img/list4.jpg" alt=""></p>
-                        <div>
-                            <p>诺心派对礼包(A款)</p>
-                            <div>
-                                <p><small>￥</small>58元</p>
-                                <p><small>￥</small>38</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <span></span>
-                        <p><img src="../../assets/img/list4.jpg" alt=""></p>
-                        <div>
-                            <p>诺心派对礼包(A款)</p>
-                            <div>
-                                <p><small>￥</small>58元</p>
-                                <p><small>￥</small>38</p>
+                                <p><small>￥</small>{{item.goodsPrice}}</p>
+                                <p><small>￥</small>{{item.lowPrice}}</p>
                             </div>
                         </div>
                     </div>
@@ -91,7 +24,7 @@
             </div>
         </div>
         <div class="main-footer"><button>立即购买</button></div>
-        <ZhezhaoGoods :boolen1="show4" @change1="goToDel" ></ZhezhaoGoods>
+        <ZhezhaoGoods :boolen1="show4" :detail="del" @change1="goToDel" ></ZhezhaoGoods>
     </div>
 </template>
 
@@ -103,18 +36,32 @@
             ZhezhaoGoods
         },
         methods:{
-            showDel(){
+            showDel(del1){
                 this.show4 = true;
+                this.$http.get(`${this.$api}/detail?goodsId=${del1}`).then(({data})=>{
+                    this.del = data;
+                    console.log(data);
+                })
             },
             goToDel(){
                 this.show4 = false;
+            },
+            goBack(){
+                this.$router.go(-1)
             }
         },
         data(){
             return {
-                show3:true,
-                show4:false
+                show4:false,
+                upPriceData:null,
+                del:{}
             }
+        },
+        created(){
+            this.$http.get(`${this.$api}/upPrice`).then(({data})=>{
+                this.upPriceData = data;
+                console.log(data);
+            })
         }
     }
 </script>
@@ -123,7 +70,8 @@
    .main{
        width:100%;
        height:100%;
-       position:absolute;
+       position:fixed;
+       overflow-y:auto;
        background-color:white;
        z-index:240;
    }
