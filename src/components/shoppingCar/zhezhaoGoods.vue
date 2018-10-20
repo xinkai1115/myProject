@@ -1,48 +1,61 @@
 <template>
-    <div class="box">
-        <div class="main-zhezhao" v-if="show5">
-        </div>
-        <div :class="name">
-            <span @click="change" class="box-delete"></span>
-            <div class="zhezhao-main">
-                <div class="img_wrap">
-                    <img src="../../assets/img/list5.jpg" alt="">
-                </div>
-                <div class="desc_wrap">
-                    <p>诺心派对礼包(A款)</p>
-                    <div>
-                        <p><small>￥</small>58元</p>
-                        <p><small>￥</small>38</p>
-                        <p>1个</p>
-                    </div>
-                </div>
-                <div class="goods_desc">
-                    <div class="desc_col">
-                        <h2>找寻心中的美好</h2>
-                        <div><img src="../../assets/img/list6.jpg" alt=""></div>
-                        <div>
-                            <h2>温馨提示</h2>
-                            <div>
-                                <p>
-                                    本品不可食用，未成年人请在家长看护下使用
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="desc_footer">
-                    <button>立即购买</button>
-                    <button>加入购物车</button>
-                </div>
+    <div class="box" v-show="boolen1"  >
+        <transition name="fade" >
+            <div class="main-zhezhao" v-show="boolen1">
             </div>
-            <div></div>
-        </div>
+        </transition>
+       <transition name="dade" >
+           <div class="con" v-show="boolen1" >
+               <span @click="change" class="box-delete"></span>
+               <div class="main-detail">
+                   <div class="zhezhao-main">
+                       <div class="img_wrap">
+                           <img src="../../assets/img/list5.jpg" alt="">
+                       </div>
+                       <div class="desc_wrap">
+                           <p>诺心派对礼包(A款)</p>
+                           <div>
+                               <p><small>￥</small>58元</p>
+                               <p><small>￥</small>38</p>
+                               <p>1个</p>
+                           </div>
+                       </div>
+                       <div class="goods_desc">
+                           <div class="desc_col">
+                               <h2>找寻心中的美好</h2>
+                               <img class="img_con" src="../../assets/img/list6.jpg" alt="">
+                               <img class="img_con" src="../../assets/img/list6.jpg" alt="">
+                               <!--<div><img src="../../assets/img/list6.jpg" alt=""></div>-->
+                               <!--<div>-->
+                               <!--<h2>温馨提示</h2>-->
+                               <!--<div>-->
+                               <!--<p>-->
+                               <!--本品不可食用，未成年人请在家长看护下使用-->
+                               <!--</p>-->
+                               <!--</div>-->
+                               <!--</div>-->
+                           </div>
+                       </div>
+                   </div>
+                   <div class="desc_footer">
+                       <button>立即购买</button>
+                       <button>加入购物车</button>
+                   </div>
+               </div>
+           </div>
+       </transition>
     </div>
 </template>
 
 <script>
     export default {
         name: "zhezhaoGoods",
+        props:{
+            boolen1:{
+                type:Boolean,
+                default:false
+            }
+        },
         data(){
           return {
               name:"main-detail",
@@ -51,14 +64,22 @@
         },
         methods:{
             change(){
-                this.name = "active",
-                this.show5 = false
+                this.$emit("change1")
             }
+        },
+        created(){
         }
     }
 </script>
 
 <style scoped>
+    .box{
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        z-index: 200;
+    }
     .main-zhezhao{
         width:100%;
         height:100%;
@@ -66,63 +87,37 @@
         left:0;
         top:0;
         background: rgba(0, 0, 0, 0.5);
-        z-index:300;
-        animation-delay:1s;
-        animation:zhezhao 1s 1;
     }
-    @-webkit-keyframes zhezhao {
-        from{
-            transform: translateY(0);
-        }
-        to{
-            transform: translateY(0);
-        }
-    }
-    .zhezhao-main{
 
+    .zhezhao-main{
+        height: 90%;
     }
     .main-detail{
         width:100%;
         height:90%;
-        position:fixed;
+        position:absolute;
         bottom:0;
-        animation:run 1s 1 forwards;
+        top: 10%;
         z-index:300;
         background: #ffffff;
+        overflow-y: scroll;
+
     }
-    @-webkit-keyframes run {
-        from{
-            transform:translateY(110%);
-        }
-        to{
-            transform:translateY(0);
-        }
+    .con{
+        height: 100vh;
+        position: relative;
     }
-    .active{
-        width:100%;
-        height:90%;
-        position:fixed;
-        bottom:0;
-        animation:runtop 1s 1 forwards;
-        background: #ffffff;
-    }
-    @-webkit-keyframes runtop {
-        from{
-            transform:translateY(0%);
-        }
-        to{
-            transform:translateY(110%);
-        }
-    }
+
     .box-delete{
         display: inline-block;
         position: absolute;
         right:20px;
-        top:-70px;
         width:40px;
+        bottom: 90%;
         height:70px;
-        background: url(../../assets/img/close.png) no-repeat center;
+        background: url("../../assets/img/close.png") no-repeat center;
         background-size: 100%;
+
     }
     .img_wrap{
         height:400px;
@@ -133,6 +128,7 @@
         position: relative;
         left: 50%;
         top: 50%;
+        width: 100vw;
         transform: translate(-50%, -50%);
     }
     .desc_wrap{
@@ -218,6 +214,7 @@
         bottom: 0;
         left: 0;
         background-color:red;
+        z-index: 500;
     }
     .desc_footer>button{
         width: 50%;
@@ -233,5 +230,18 @@
     .desc_footer>button:nth-child(2){
         background: #f9f9f9;
         color: #939393;
+    }
+    .img_con{
+        width: 100vw;
+    }
+    .fade-leave, .fade-leave-to{
+        transition: all 0s 0.6s ease;
+        transform: translateY(0);
+    }
+    .dade-enter-active, .dade-leave-active{
+        transition: all 0.6s;
+    }
+    .dade-enter, .dade-leave-to{
+        transform: translateY(100%);
     }
 </style>
