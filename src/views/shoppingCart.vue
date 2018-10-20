@@ -33,7 +33,7 @@
         </div>
 
         <!--购物车没有商品 显示的头部-->
-        <div class="box-header">
+        <div v-show="!hasGoods" class="box-header">
             <img src="../assets/img/empty.png" alt="">
             <p>您还没有选购您的商品</p>
         </div>
