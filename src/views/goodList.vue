@@ -47,31 +47,24 @@
                 <!--<a href="javascript:void(0)" @click="toTop" class="global_back_top"></a>-->
                 <scroll-top></scroll-top>
             </section>
-            <GoodsDetail class="goos"></GoodsDetail>
+            <!--<GoodsDetail class="goos"></GoodsDetail>-->
         </article>
 </template>
 
 <script>
     import Handlerbtn from '../components/home/handler_btn'
     import GoodsMain from '../components/goodsMain'
-<<<<<<< HEAD
-
     import  GoodsDetail from "../components/goodsDetail"
 
-=======
     import ScrollTop from '../components/goodsList/scrollTop'
->>>>>>> 1701961b128b9edc81af7e1ee95cd0b528c67c38
     export default {
         name: "goodList",
         components: {
             Handlerbtn,
             GoodsMain,
-<<<<<<< HEAD
-            GoodsDetail
-=======
+            GoodsDetail,
             "scroll-top":ScrollTop
 
->>>>>>> 1701961b128b9edc81af7e1ee95cd0b528c67c38
         },
         data(){
             return {
@@ -389,7 +382,7 @@
     .goos{
         width: 100vw;
         height: 100vh;
-        position: fixed;
+        /*position: fixed;*/
         top: 0;
         left: 0;
         z-index: 100000;

@@ -146,7 +146,7 @@
         name: "announcement",
         methods:{
             gohome(){
-                this.$router.go(-1);
+                this.$router.push("/");
                 this.$emit("changeData")
             },
 
