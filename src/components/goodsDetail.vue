@@ -3,9 +3,9 @@
         <header class="global_fix_top">
             <div class="header_wrap">
                 <div class="box_shadow">
-                    <a href="" class="header_left"></a>
+                    <a href="#" @click="goBack" class="header_left"></a>
                     <h1 class="no_wrap">商品详情</h1>
-                    <a href="" class="header_right">首页</a>
+                    <a href="#" @click="goHome" class="header_right">首页</a>
                 </div>
             </div>
         </header>
@@ -14,7 +14,11 @@
                 <img id="shareBtn_icon" src="../assets/img/btn.png" alt="">
                 <div class="swiper-con">
                     <swiper :options="swiperOption" class="swiper_box" >
-                        <swiper-slide><img src="https://imagecdn.lapetit.cn/postsystem/docroot/images/goods/201706/15474/display_15474_39428.jpg"></swiper-slide>
+                        <!--<template v-for="(item,index) in detailData.goodsLargeUrl" >-->
+                             <swiper-slide  v-for="(item,index) in detailData.goodsLargeUrl" :key="index" >
+                                 <img :src="item">
+                             </swiper-slide >
+                        <!--</template>-->
                     </swiper>
                     <div class="swiper-pagination swiper-pagination-bullets"></div>
                 </div>
@@ -335,7 +339,8 @@
                 },
                 show:false,
                 show1:false,
-                show2:true
+                show2:true,
+                detailData:{}
             }
         },
         methods:{
@@ -350,10 +355,18 @@
                   }
               }
 
+          },
+          goBack(){
+              this.$router.go(-1)
+          },
+          goHome(){
+              this.$router.push("/home")
           }
         },
         created(){
-            this.$http.get(`${this.$api}/detail?goodsId=5bc5d76650ffb124431cec7f`).then(({data})=>{
+            let goodsId = this.$route.query.goodsId;
+            this.$http.get(`${this.$api}/detail?goodsId=${goodsId}`).then(({data})=>{
+                this.detailData = data;
                 console.log(data);
             })
         }
@@ -366,10 +379,12 @@
         font-size: 24px;
         background: #f6f6f6;
         min-height: 100%;
-        width: 100%;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
         position: absolute;
         color: #3e3e3e;
-        z-index: 100;
+        z-index: 1000;
     }
     .global_fix_top{
         height: 88px;

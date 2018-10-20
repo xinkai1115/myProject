@@ -155,9 +155,10 @@
 </script>
 
 <style scoped>
-    /*.main_notice{*/
-        /*!*background: red;*!*/
-    /*}*/
+    .main_notice{
+        position: relative;
+        z-index: 10000;
+    }
     header{
         height: 88px;
         width: 100%;

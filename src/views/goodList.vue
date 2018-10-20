@@ -37,9 +37,9 @@
                 </section>
             <section class="goods_list">
                 <ul class="p_list clear_fix lazy_load_wrap">
-                    <li  v-for="(item,index) in data" :key="index" @click="goToGoodsDetail(item._id)"  >
+                    <router-link tag="li" :to="{path:'/list/detail',query:{goodsId:item._id}}" v-for="(item,index) in data" :key="index"  >
                         <GoodsMain :goodsData="item" ></GoodsMain>
-                    </li>
+                    </router-link>
                 </ul>
                 <div class="bottom_text">
                     <p>没有更多产品咯</p>
@@ -47,7 +47,7 @@
                 <!--<a href="javascript:void(0)" @click="toTop" class="global_back_top"></a>-->
                 <scroll-top></scroll-top>
             </section>
-            <!--<GoodsDetail class="goos"></GoodsDetail>-->
+            <router-view></router-view>
         </article>
 </template>
 
@@ -99,10 +99,6 @@
                 }else{
                     this.toast = "";
                 }
-            },
-            //进入商品详情页
-            goToGoodsDetail(goodsId){
-                console.log(goodsId);
             }
         },
         mounted(){

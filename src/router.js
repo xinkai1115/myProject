@@ -20,6 +20,7 @@ import BindCard from "./components/personalCenter/myCard/bindCard"
 import SettleGoods from "./components/shoppingCar/settleGoods"
 import SiteGoods from "./components/shoppingCar/siteGoods"
 import NewsiteGoods from "./components/shoppingCar/newsiteGoods"
+import GoodsDetail from './components/goodsDetail'
 
 
 Vue.use(Router)
@@ -43,7 +44,11 @@ export default new Router({
     {
       path: '/list',
       name: 'GoodsList',
-      component: GoodsList
+      component: GoodsList,
+      children:[{
+          path:'/list/detail',
+          component:GoodsDetail
+      }]
     },
     {
         path: '/cart',

@@ -1,8 +1,7 @@
 <template>
   <div class="home">
-    <div>
-      <router-view @changeData="aaa" class="a"></router-view>
-    </div>
+      <router-view @changeData="aaa"  ></router-view>
+
     <div class="aa" v-show="a">
       <header class="top">
         <div class="header">
@@ -69,9 +68,9 @@
             <router-link to="/list">蛋糕馆</router-link>
           </h2>
           <ul class="p_list">
-            <li class="p_item" v-for="(item,index) in cakeData" :key="index" >
+            <router-link tag="li" :to="{path:'/list/detail',query:{goodsId:item._id}}" class="p_item" v-for="(item,index) in cakeData" :key="index" >
               <GoodsMain  :goodsData="item" ></GoodsMain>
-            </li>
+            </router-link>
           </ul>
         </section>
         <!--吐司馆-->
@@ -83,9 +82,9 @@
         <section class="gift_section">
           <h2><router-link :to="{path:'/list',query:{uid:100}}">吐司馆</router-link></h2>
           <ul class="p_list">
-            <li v-for="(item,index) in toastData" :key="index" class="p_item" >
+            <router-link tag="li" :to="{path:'/list/detail',query:{goodsId:item._id}}" v-for="(item,index) in toastData" :key="index" class="p_item" >
               <GoodsMain  :goodsData="item" ></GoodsMain>
-            </li>
+            </router-link>
           </ul>
         </section>
         <!--礼品馆-->
@@ -97,9 +96,9 @@
         <section class="gift_section">
           <h2><router-link :to="{path:'/list',query:{uid:1000}}">礼品馆</router-link></h2>
           <ul class="p_list">
-              <li v-for="(item,index) in giftData" :key="index" class="p_item" >
+              <router-link tag="li" :to="{path:'/list/detail',query:{goodsId:item._id}}" v-for="(item,index) in giftData" :key="index" class="p_item" >
                 <GoodsMain  :goodsData="item" ></GoodsMain>
-              </li>
+              </router-link>
           </ul>
         </section>
         <section class="comment_section">
@@ -575,6 +574,9 @@ export default {
   .main{
     padding: 0 0 108px;
   }
+  .home{
+    position: relative;
+  }
   .tit{
     position: relative;
     line-height: 64px;
@@ -631,10 +633,7 @@ export default {
     left: 50%;
     margin-left: -20px;
   }
-  .a{
-    position: relative;
-    z-index: 10000;
-  }
+
   .main{
     position: relative;
   }
