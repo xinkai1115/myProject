@@ -10,6 +10,7 @@
             <div class="main-box-list">
                 <div class="main-box-list-wrap">
                     <div @click="showDel">
+                    <div @click="show4=true">
                         <span></span>
                         <p><img src="../../assets/img/list4.jpg" alt=""></p>
                         <div>

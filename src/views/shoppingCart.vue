@@ -2,6 +2,7 @@
     <div class="box">
         <!--<CheckMore v-if="show2"></CheckMore>-->
         <!--显示已加入购物车的商品-->
+        <router-view></router-view>
         <div class="car-list">
             <div class="car-item" v-for="(item,index) in cartGoods" :key="index" >
                 <div class="car-info">
@@ -32,7 +33,7 @@
         </div>
 
         <!--购物车没有商品 显示的头部-->
-        <div v-show="!hasGoods" class="box-header"  >
+        <div class="box-header">
             <img src="../assets/img/empty.png" alt="">
             <p>您还没有选购您的商品</p>
         </div>
@@ -163,8 +164,8 @@
                 <div class="box-weekly-main-item4">
                     <div></div>
                     <div class="inner">
-                        <a href="javascript:void(0)"></a>
-                        <div>结算</div>
+                        <a href="#"></a>
+                        <div @click=""><router-link to="/cart/settle">结算</router-link></div>
                         <div>
                             <span>应付:￥<p>210</p></span>
                         </div>
