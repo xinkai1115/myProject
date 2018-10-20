@@ -55,7 +55,7 @@
                 </transition>
                 <transition name="dade">
                     <div v-show="show" class="pop_wrapper_inner active">
-                        <span class="close"></span>
+                        <span class="close" @click="show = !show"></span>
                         <div class="content_spec">
                             <div class="header_goodsInfo">
                                 <div class="goods_img">
@@ -204,9 +204,109 @@
                     </div>
                 </transition>
             </section>
-            <div class="promotions">
-
+            <div class="promotions" @click="show1=!show1">
+                <div class="inner">
+                    <strong>促销</strong>
+                    <div class="content">
+                        <span class="promotion_content">9.9元加购吐司</span>
+                    </div>
+                </div>
             </div>
+            <section class="share_wrapper">
+                <transition name="tade">
+                    <div class="pop_wrapper_mask" v-show="show1" @click="show1=!show1"></div>
+                </transition>
+                <transition name="sade">
+                    <div class="pop_wrapper_inner list active" v-show="show1">
+                        <span class="close" @click="show1=!show1"></span>
+                        <div class="content_invoice">
+                            <div class="invoice_item">
+                                <h3>9.9元加购吐司</h3>
+                                <p>
+                                    【玩转舌尖 纵享魔力】2018.9.30-2018.10.30下单且不晚于10.31配送的蛋糕订单，每单可9.9元加价购「哇哦！吐司」1份，先到先得，不与其他优惠同享。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </transition>
+            </section>
+            <div class="desc_col goods_comments comments_example">
+                <div class="inner">
+                    <h2>
+                        <span>用户评论</span>
+                        <a href="">看看大家怎么说</a>
+                    </h2>
+                    <div class="comments_item">
+                        <div class="comment_title">
+                            <img src="../assets/img/avatar1.png" class="avatar" alt="">
+                            <span>188***5012</span>
+                            <span>5-8人食</span>
+                            <span class="f_right">2018-10-19 10:02:03</span>
+                        </div>
+                        <div class="comment_content">好呢</div>
+                    </div>
+                    <div class="comments_item">
+                        <div class="comment_title">
+                            <img src="../assets/img/avatar1.png" class="avatar" alt="">
+                            <span>188***5012</span>
+                            <span>5-8人食</span>
+                            <span class="f_right">2018-10-19 10:02:03</span>
+                        </div>
+                        <div class="comment_content">好呢</div>
+                    </div>
+                </div>
+            </div>
+            <section class="goods_desc">
+                <p>&nbsp;</p>
+                <div class="desc_col">
+                    <h2>找寻心中的美味</h2>
+                    <div class="imgDesc_wrap">
+                        <img src="http://www.lecake.com/postsystem/docroot/images/goods/CEEFCB6DE21DFE34C8918E20EDD6720B.jpg" alt="">
+                    </div>
+                    <p class="goods_intro">芝士与香草戚风被雪域奶油的浪漫笼罩，每一口都充满快乐的滋味，撩拨起无限的食欲，让味蕾懂得了心跳的感觉。</p>
+                    <div class="auto_height">
+                        <img class="auto_pos" @click="show2=!show2" v-show="show2" style="z-index: 2" src="../assets/img/meidaodao_poster.jpg" alt="">
+                        <video class="auto_pos" controls preload="auto" src="../assets/img/meidaodao.mp4"></video>
+                    </div>
+                </div>
+                <div class="desc_col">
+                    <h2>严选食材</h2>
+                    <div class="imgDesc_wrap">
+                        <img src="http://www.lecake.com/postsystem/docroot/images/goods/9E6796745AFF19FD19F4324FF70EFEE3.jpg" alt="">
+                    </div>
+                </div>
+                <div class="desc_col">
+                    <div class="imgWrap">
+                        <img src="http://wx01.lecake.com/postsystem/docroot/images/promotion/201805/濂舵补(4).jpg" alt="">
+                    </div>
+                    <div class="contentWrap">
+                        <p>用心打发而成的美味奶油<br/>口感绵密，精致细腻<br/>这份雪白<br/>让你有如获至宝的幸福感</p>
+                    </div>
+                </div>
+                <div class="desc_col">
+                    <div class="contentWrap">
+                        <p>用心打发而成的美味奶油<br/>口感绵密，精致细腻<br/>这份雪白<br/>让你有如获至宝的幸福感</p>
+                    </div>
+                    <div class="imgWrap">
+                        <img src="http://wx01.lecake.com/postsystem/docroot/images/promotion/201805/濂舵补(4).jpg" alt="">
+                    </div>
+                </div>
+                <div class="about_e">
+                    <h2>关于食用</h2>
+                    <div class="text_wrap">
+                        <p>口味：芝士口味<br/>适合人群：大众<br/>保鲜条件：冷藏0-4摄氏度<br/>食用方法：请收到蛋糕后2-3小时内食用</p>
+                        <p class="orange">
+                            温馨提示：蛋糕中出现的细小黑色颗粒为香草籽，此为香草荚未碾磨均匀带入的颗粒，可放心食用，商品以实物为准。
+                        </p>
+                    </div>
+                </div>
+                <div class="desc_col">
+                    <h2 id="audioDesc">如何定制个性语音</h2>
+                    <p class="audio_icon">
+
+                    </p>
+                </div>
+            </section>
         </div>
     </article>
 </template>
@@ -233,7 +333,9 @@
                     spaceBetween:30,
                     loop:true
                 },
-                show:false
+                show:false,
+                show1:false,
+                show2:true
             }
         },
         methods:{
@@ -265,14 +367,16 @@
         background: #f6f6f6;
         min-height: 100%;
         width: 100%;
-        position: fixed;
+        position: absolute;
+        color: #3e3e3e;
+        z-index: 100;
     }
     .global_fix_top{
         height: 88px;
     }
     .header_wrap {
         position: fixed;
-        z-index: 10;
+        z-index: 20;
         left: 0;
         top: 0;
         width: 100%;
@@ -479,7 +583,7 @@
         right: 32px;
         transform: rotate(180deg);
     }
-    .add .pop_wrapper_mask{
+    .pop_wrapper_mask{
         position: fixed;
         top: 0;
         left: 0;
@@ -711,4 +815,260 @@
         color: #ffffff;
         background: #ff4001;
     }
+    .fade-leave, .fade-leave-to {
+        /*opacity: 0;*/
+        transition: all 0s 0.6s ease;
+        transform:translateY(0);
+    }
+    .dade-enter-active, .dade-leave-active{
+        transition: all 0.6s;
+    }
+    .dade-enter, .dade-leave-to {
+        /*opacity: 0;*/
+        transform:translateY(100%);
+    }
+    .pop_wrapper_inner .close {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 60px;
+        height: 60px;
+        z-index: 7;
+    }
+    .pop_wrapper_inner .close:before {
+        position: absolute;
+        content: '';
+        width: 40px;
+        height: 40px;
+        background: url(../assets/img/upload.png) no-repeat center;
+        right: 0;
+        top: 0;
+        background-size: 200px 200px;
+        background-position: -120px -40px;
+    }
+    .promotions{
+        background: #ffffff;
+        margin-bottom: 20px;
+    }
+    .main .promotions .inner{
+        position: relative;
+        padding: 24px 0;
+        margin: 0 32px;
+        line-height: 46px;
+    }
+    .main .promotions .inner strong {
+        font-weight: bolder;
+        margin-right: 10px;
+    }
+    .main .promotions .inner .content {
+        width: 83%;
+        display: inline-block;
+        vertical-align: top;
+    }
+    .main .promotion .inner .content p {
+        margin-bottom: 10px;
+        float: left;
+    }
+    .main .promotions .inner .content span {
+        color: #ffffff;
+        background: #ff4001;
+        padding: 4px 8px;
+        border-radius: 2PX;
+        margin: 0 4px;
+    }
+    .main .promotions .inner:after {
+        content: '';
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: url(../assets/img/icons.png) no-repeat center;
+        background-size: 400px 400px;
+        top: 50%;
+        margin-top: -20px;
+        background-position: -80px -120px;
+        right: 0;
+        transform: rotate(180deg);
+    }
+    .share_wrapper .pop_wrapper_inner.list {
+        height: 50%;
+        position: fixed;
+        bottom: -60px;
+        left: 0;
+        background: #fff;
+        width: 100%;
+        z-index: 15;
+        /*transform: translateY(100%);*/
+        /*transition: all 0.6s;*/
+    }
+    .content_invoice {
+        height: 90%;
+        overflow: auto;
+        padding-top: 10%;
+    }
+    .invoice_item {
+        width: 80%;
+        margin: auto;
+        padding: 30px 0;
+        border-bottom: 1PX solid #f9f9f9;
+    }
+    .invoice_item h3 {
+        display: inline-block;
+        color: #ffffff;
+        background: #ff4001;
+        margin-bottom: 20px;
+        padding: 4px 8px;
+        border-radius: 2PX;
+        line-height: 36px;
+    }
+    .invoice_item p{
+        color: #ff4001;
+        line-height: 36px;
+    }
+    .tade-leave, .tade-leave-to {
+        /*opacity: 0;*/
+        transition: all 0s 0.6s ease;
+        transform:translateY(0);
+    }
+    .sade-enter-active, .sade-leave-active{
+        transition: all 0.6s;
+    }
+    .sade-enter, .sade-leave-to {
+        /*opacity: 0;*/
+        transform:translateY(100%);
+    }
+    .comments_example{
+        background: #ffffff;
+        margin-bottom: 20px;
+    }
+    .main .goods_comments .inner {
+        padding: 24px 0;
+        margin: 0 32px;
+        overflow: hidden;
+    }
+    .main .goods_comments .inner h2 {
+        position: relative;
+        line-height: 36px;
+    }
+    .main .goods_comments .inner h2 a {
+        float: right;
+        margin-right: 40px;
+        line-height: 36px;
+        color: #3e3e3e;
+    }
+    .main .goods_comments .inner h2:after {
+        content: '';
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: url(../assets/img/icons.png) no-repeat center;
+        background-size: 400px 400px;
+        top: 50%;
+        margin-top: -20px;
+        background-position: -80px -120px;
+        right: 0;
+        transform: rotate(180deg);
+    }
+    .comments_item {
+        border-bottom: 1PX solid #d1c6af;
+        padding-bottom: 4px;
+    }
+    .comment_title {
+        position: relative;
+        padding: 0 24px 0 80px;
+        height: 96px;
+        line-height: 96px;
+    }
+    .main .goods_comments .avatar {
+        width: 72px;
+        position: absolute;
+        height: 72px;
+        left: 0;
+        top: 50%;
+        margin-top: -36px;
+    }
+    .comment_title span {
+        color: #9c9c9c;
+        margin-left: 24px;
+    }
+    .f_right {
+        float: right;
+    }
+    .comments_item .comment_content {
+        margin-bottom: 24px;
+    }
+    .comments_item:last-of-type {
+        border-bottom: 0;
+    }
+    .main .goods_desc {
+        padding-bottom:40px;
+        background: white;
+    }
+    .goods_desc p:nth-child(1){
+        line-height: 36px;
+    }
+    .main .goods_desc .desc_col {
+        width: 93%;
+        margin: 0 auto 20PX;
+    }
+    .goods_desc .desc_col h2 {
+        font-size: 30px;
+        padding-top: 40px;
+        margin: 0 32px 40px 32px;
+        text-align: center;
+        color: #a6906c;
+    }
+    .main .goods_desc .desc_col img {
+        width: 100%;
+        vertical-align: top;
+    }
+    .main .goods_desc .desc_col .goods_intro {
+        width: 70%;
+        margin: auto;
+        text-align: justify;
+        line-height: 36px;
+    }
+    .auto_height{
+        margin: 32px 4% 0;
+        padding-top: 51.75%;
+        width: auto;
+        position: relative;
+    }
+    .auto_pos {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+    }
+    .main .goods_desc .desc_col .imgWrap {
+        display: inline-block;
+        vertical-align: middle;
+        width: 50%;
+        max-width: 50%;
+    }
+    .main .goods_desc .desc_col .contentWrap {
+        display: inline-block;
+        vertical-align: middle;
+        width: 48%;
+        text-align: center;
+    }
+    .about_e h2 {
+        font-size: 30px;
+        /*padding-top: 40px;*/
+        margin: 0 32px 40px 32px;
+        text-align: center;
+        color: #a6906c;
+    }
+    .about_e .text_wrap {
+        width: 70%;
+        margin: auto;
+    }
+    .about_e p:nth-child(1){
+        line-height: 48px;
+    }
+    .about_e .orange {
+        color: #ff4001;
+        line-height: 48px;
+    }
+    //.desc_col
 </style>

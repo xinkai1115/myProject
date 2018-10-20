@@ -548,6 +548,11 @@ export default {
             this.toastData = arr;
         })
     },
+    watch:{
+      $route(){
+          this.a=true;
+      }
+    },
     mounted(){
         var mySwiper = new Swiper ('.swiper-container', {
             loop: true,
