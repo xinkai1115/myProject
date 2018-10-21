@@ -46,7 +46,7 @@
             </div>
             <ul class="box-main-ul">
                 <li v-for="(item,index) in recomGoods" :key="index">
-                    <span  @click="addCart(item)" class="add" ></span>
+                    <span  @click="sendGoods(item)" class="add" ></span>
                     <div>
                         <a href="javascript:void(0)" class="auto_height">
                             <img :src="item.goodsImg" alt="">
@@ -116,11 +116,11 @@
                     <!--切换甄选独立套餐-->
                     <div v-show="!isSetMeal" >
                         <ul>
-                            <li v-for="(item,index) in toastData" :key="index" @click="addCart(item)" >
+                            <li v-for="(item,index) in toastData" :key="index" >
                                 <div class="box2">
                                     <a href="#"><img :src="item.goodsImg" alt=""></a>
                                     <h3>{{item.goodsName}}</h3>
-                                    <h4><b>￥{{item.goodsChoose[0].goodsPrice}}</b><i></i></h4>
+                                    <h4><b>￥{{item.goodsChoose[0].goodsPrice}}</b><i @click="sendGoods(item)" ></i></h4>
                                 </div>
                             </li>
                         </ul>
@@ -131,7 +131,7 @@
                     <div></div>
                     <h2>精品配件</h2>
                     <ul>
-                        <li v-for="(item,index) in mountingData" :key="index">
+                        <li v-for="(item,index) in mountingData" :key="index" >
                             <SiftGoods :mountings="item"></SiftGoods>
                         </li>
                     </ul>
@@ -171,7 +171,7 @@
     import MoreGoods from "../components/shoppingCar/moreGoods"
     import SiftGoods from "../components/shoppingCar/siftGoods"
 
-    import { mapState , mapMutations ,mapGetters} from "vuex"
+    import { mapState , mapMutations ,mapGetters,mapActions} from "vuex"
     export default {
         name: "shoppingCart",
         components:{
@@ -198,6 +198,7 @@
         },
         methods:{
             ...mapMutations(["addCart"]),
+            ...mapActions(['sendGoods']),
             slectOther($event,test){
                 $("#choseBtn").children().each((index,item)=>{
                     $(item).attr("class","")

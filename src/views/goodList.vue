@@ -56,6 +56,7 @@
     import GoodsMain from '../components/goodsMain'
     import  GoodsDetail from "../components/goodsDetail"
     import ScrollTop from '../components/goodsList/scrollTop'
+    import {mapActions} from 'vuex'
     export default {
         name: "goodList",
         components: {
@@ -76,6 +77,7 @@
         },
         methods:{
             // 点击销量，上新，综合，请求到不同的数据
+            ...mapActions(['sendGoodsId']),
             changeSort(e){
                 console.log(e);
                 this.$http.get(`${this.$api}/list?uid=${this.uid}&sort=${e}`).then(({data})=>{

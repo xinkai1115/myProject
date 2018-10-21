@@ -10,7 +10,7 @@
         <li class="active"><router-link to="/">首页</router-link></li>
         <li><router-link :to="{path:'/list',query:{uid:1000}}">礼品馆</router-link></li>
         <li><router-link to="/list">蛋糕馆</router-link></li>
-        <li><router-link to="/cart">购物车</router-link></li>
+        <li><router-link to="/cart">购物车 <span>1</span> </router-link></li>
         <li><router-link to="/index">个人中心</router-link></li>
       </ul>
 
@@ -72,6 +72,27 @@
     padding-top: 64px;
     text-decoration: none;
     color: #a38d6b;
+    position: relative;
+  }
+  .wrap li a span{
+    position: absolute;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 50%;
+    top: 4px;
+    margin-left: 8px;
+    height: 32px;
+    /*padding: 0 8px;*/
+    width: 32px;
+    text-align: center;
+    font-size: 20px;
+    color: #ffffff;
+    background: #ff4001;
+    -webkit-border-radius: 16px;
+    border-radius: 16px;
   }
   /*.wrap li:nth-child(1) a{*/
   /*color: #ff4001;*/

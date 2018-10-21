@@ -2,7 +2,7 @@
     <div class="wrap1 active">
         <!--登录成功wrap1添加一个class.active-->
         <!--centre是个人中心主页面组件-->
-        <Login v-if="show"></Login>
+        <!--<Login v-if="show"></Login>-->
         <!--我的订单组件-->
         <router-view></router-view>
         <div class="centre">
@@ -11,18 +11,18 @@
                     <img src="../assets/img/avatar.png" alt="">
                 </div>
                 <div class="header-login">
-                    <a href="#" @click="show=true">登录</a>
-                    <h3>
+                    <router-link to="/index/login" v-show="!isLogin" >登录</router-link>
+                    <h3 v-show="isLogin">
                         <span class="name">150***3618</span>
                         <span class="leve">LEV1</span>
                     </h3>
-                    <h4>
+                    <h4 v-show="isLogin">
                         <span class="f-left">积分:0</span>
                         <router-link to="/index/mymind"><span class="f-right">心享值:0</span></router-link>
                     </h4>
                 </div>
             </div>
-            <div class="header-hidden">
+            <div class="header-hidden" v-show="isLogin" >
                 <div class="info">
                     <strong>心享卡</strong>
                     <a href="" class="buy-link">立即开通</a>
@@ -30,16 +30,16 @@
             </div>
             <hr>
             <div class="main-order">
-                <router-link to="/index/order">待付款</router-link>
-                <router-link to="/index/order">待发货</router-link>
-                <router-link to="/index/order">待收货</router-link>
-                <router-link to="/index/order">我的订单</router-link>
+                <router-link :to="isLogin?'/index/order':'/index/login'" >待付款</router-link>
+                <router-link :to="isLogin?'/index/order':'/index/login'">待发货</router-link>
+                <router-link :to="isLogin?'/index/order':'/index/login'">待收货</router-link>
+                <router-link :to="isLogin?'/index/order':'/index/login'">我的订单</router-link>
             </div>
             <hr>
             <div class="main-list">
-                <router-link to="/index/mytoken">优惠卡券</router-link>
-                <router-link to="/index/mycard">储值卡</router-link>
-                <router-link to="/index/myleclub">leclub</router-link>
+                <router-link :to="isLogin?'/index/mytoken':'/index/login'">优惠卡券</router-link>
+                <router-link :to="isLogin?'/index/mycard':'/index/login'">储值卡</router-link>
+                <router-link :to="isLogin?'/index/myleclub':'/index/login'">leclub</router-link>
                 <hr>
                 <router-link to="/index/myourself" class="no-icon">关于我们</router-link>
                 <router-link to="/index/mybill" class="no-icon">关于发票</router-link>
@@ -51,18 +51,20 @@
     </div>
 </template>
 <script>
-    import Login from "../components/login"
-
+    // import Login from "../components/login"
+    import {mapState} from 'vuex'
     export default {
         data(){
             return {
-                show:false
+
             }
         },
         name: "personalCenter",
         components:{
-            Login
 
+        },
+        computed:{
+            ...mapState(["isLogin"])
         },
         mounted(){
 
@@ -105,13 +107,13 @@
     }
     .header-login>h3{
         padding:12px 0px 40px;
-        display:none;
+        /*display:none;*/
     }
     .header-login>h4{
         position:relative;
         height:48px;
         line-height:48px;
-        display:none;
+        /*display:none;*/
 
     }
     .active>.centre>.header>.header-login>a{

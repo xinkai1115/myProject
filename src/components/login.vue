@@ -3,19 +3,20 @@
         <div class="main">
             <div class="main-header">
                 <p>
-                <input type="tel" placeholder="请输入手机号" maxlength="11">
+                <input type="tel" ref="phone" placeholder="请输入手机号" maxlength="11">
                     <span class="error-hidden"></span>
             </p>
                 <p>
-                    <input type="tel" placeholder="短信验证码" maxlength="4">
-                    <button class="btn">发送验证码</button>
+                    <input type="tel" ref="input" placeholder="短信验证码" maxlength="4">
+                    <button class="btn" ref="code" @click="send" >点击获取</button>
                     <button class="btn" style="display:none">正在发送</button>
                     <button class="btn" style="display:none">0秒后重试</button>
                     <span class="error-hidden"></span>
                 </p>
                 <p>首次使用手机号登录将自动为您注册</p>
+                <h1>{{hint}}</h1>
                 <div>
-                    <button>登录LOGIN</button>
+                    <button @click="login" >登录LOGIN</button>
                 </div>
             </div>
         </div>
@@ -23,12 +24,52 @@
 </template>
 
 <script>
+    import {mapMutations,mapActions} from 'vuex'
     export default {
-        name: "login"
+        name: "login",
+        data(){
+          return {
+              hint:''
+          }
+        },
+        methods:{
+            ...mapMutations({
+                showLogin:'login'
+            }),
+            ...mapActions(['getLogin']),
+            send(e){
+                var arr = [1,2,3,4,5,6,7,8,9,0,"a","b","c","d","q","w","e","r","t","y","s","g","h","j","k",'i','m','z','k'];
+                var out = [];
+                while(out.length < 4) {
+                    var temp = parseInt(Math.random() * arr.length);
+                    console.log(temp);
+                    out.push(arr[temp]);
+                }
+                e.target.innerText = out.join("");
+            },
+            login(){
+                var value = $(this.$refs.input).val();
+                var code = $(this.$refs.code).text();
+                var phoneNum = $(this.$refs.phone).val();
+                if(value == code && !isNaN(phoneNum) && phoneNum.length == 11){
+                    this.hint="登录成功"
+                    this.showLogin(phoneNum);
+                    this.$router.go(-1);
+                    this.getLogin()
+                }else{
+                    this.hint="账号或密码错误"
+                }
+            }
+        }
     }
 </script>
 
 <style scoped>
+    h1{
+        text-align: center;
+        font-size: 20px;
+        color: red;
+    }
     .login-main{
         width:100%;
         height:100vh;
@@ -93,6 +134,7 @@
         bottom:8px;
         border:0;
         outline:none;
+        padding: 10px 0px;
     }
     .main-header>div{
         margin-top:100px;

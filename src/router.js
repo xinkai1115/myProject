@@ -22,6 +22,7 @@ import SiteGoods from "./components/shoppingCar/siteGoods"
 import NewsiteGoods from "./components/shoppingCar/newsiteGoods"
 import GoodsDetail from './components/goodsDetail'
 import CheckMore from "./components/shoppingCar/CheckMore"
+import Login from './components/login'
 
 
 Vue.use(Router)
@@ -77,7 +78,12 @@ export default new Router({
     {
         path: '/index',
         name: 'PersonalCenter',
-        component:PersonalCenter
+        component:PersonalCenter,
+        children:[{
+            path:'/index/login',
+            component:Login
+
+        }]
     },
       {
           path:'/index/order',
