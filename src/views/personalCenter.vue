@@ -8,7 +8,7 @@
         <div class="centre">
             <div class="header1">
                 <div class="header-img">
-                    <img src="../assets/img/avatar.png" alt="">
+                    <router-link to="/index/exitlogin"><img src="../assets/img/avatar.png" alt=""></router-link>
                 </div>
                 <div class="header-login">
                     <router-link to="/index/login" v-show="!isLogin" >登录</router-link>
@@ -86,7 +86,11 @@
         text-align:center;
         padding:30px 28px 20px;
     }
-    .header-img>img{
+    .header-img>a{
+        font-size:100px;
+        outline:0;
+    }
+    .header-img>a>img{
         width:110px;
         height:110px;
     }
