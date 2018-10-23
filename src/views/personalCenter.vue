@@ -30,16 +30,16 @@
             </div>
             <hr>
             <div class="main-order">
-                <router-link :to="isLogin?'/index/order':'/index/login'" >待付款</router-link>
-                <router-link :to="isLogin?'/index/order':'/index/login'">待发货</router-link>
-                <router-link :to="isLogin?'/index/order':'/index/login'">待收货</router-link>
-                <router-link :to="isLogin?'/index/order':'/index/login'">我的订单</router-link>
+                <router-link :to="isLogin?'/index/order':{path:'/index/login',query:{data:'order'}}" >待付款</router-link>
+                <router-link :to="isLogin?'/index/order':{path:'/index/login',query:{data:'order'}}">待发货</router-link>
+                <router-link :to="isLogin?'/index/order':{path:'/index/login',query:{data:'order'}}">待收货</router-link>
+                <router-link :to="isLogin?'/index/order':{path:'/index/login',query:{data:'order'}}">我的订单</router-link>
             </div>
             <hr>
             <div class="main-list">
-                <router-link :to="isLogin?'/index/mytoken':'/index/login'">优惠卡券</router-link>
-                <router-link :to="isLogin?'/index/mycard':'/index/login'">储值卡</router-link>
-                <router-link :to="isLogin?'/index/myleclub':'/index/login'">leclub</router-link>
+                <router-link :to="isLogin?'/index/mytoken':{path:'/index/login',query:{data:'mytoken'}}">优惠卡券</router-link>
+                <router-link :to="isLogin?'/index/mycard':{path:'/index/login',query:{data:'mycard'}}">储值卡</router-link>
+                <router-link :to="isLogin?'/index/myleclub':{path:'/index/login',query:{data:'myleclub'}}">leclub</router-link>
                 <hr>
                 <router-link to="/index/myourself" class="no-icon">关于我们</router-link>
                 <router-link to="/index/mybill" class="no-icon">关于发票</router-link>

@@ -3,10 +3,14 @@
          <router-view></router-view>
          <div class="box">
           <div class="box_item1">
-              <router-link to="/cart/settle/site">
-                  <div>
-                      <strong>请填写收货地址</strong>
-                  </div>
+              <router-link tag="div" to="/cart/settle/site" v-if="!site" >
+                  <strong>请填写收货地址</strong>
+              </router-link>
+              <router-link tag="div" to="/cart/settle/site" id="address" v-if="site" >
+                  <h3><strong>{{site.consignee}}</strong><b>{{site.phoneNum}}</b></h3>
+                  <h4>{{site.site}}
+                  </h4>
+                  <i>更换</i>
               </router-link>
           </div>
           <div class="box_item2">
@@ -97,17 +101,69 @@
     import {mapGetters,mapState} from 'vuex'
     export default {
         name: "settleGoods",
+        data(){
+          return {
+              site:null
+          }
+        },
         computed:{
             ...mapState(["cartGoods"]),
             ...mapGetters(["submitGoods"])
         },
         created(){
-            console.log(this.submitGoods);
+
+        },
+        watch:{
+            $route(){
+                console.log(this.$route.params);
+                this.site = this.$route.params.site;
+            }
         }
     }
 </script>
 
 <style scoped>
+    #address{
+        position: relative;
+        padding:40px 80px 36px 40px;
+    }
+    #address h3{
+        line-height: 48px;
+        margin-bottom:16px;
+    }
+    #address h3 strong{
+        font-size: 30px;
+        font-weight: bold;
+        max-width: 160px;
+        margin-right: 8px;
+    }
+    #address h4{
+        line-height: 32px;
+        position: relative;
+    }
+    #address h4::before{
+        content: '';
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: url(../../assets/img/icons.png) no-repeat center;
+        -webkit-background-size: 400px 400px;
+        background-size: 400px 400px ;
+        top: 50%;
+        margin-top: -20px;
+        background-position: -120px -160px;
+        left: -44px;
+    }
+    #address i{
+        position: absolute;
+        width: 80px;
+        height: 48px;
+        text-align: right;
+        line-height: 48px;
+        top: 50%;
+        margin-top: -20px;
+        right: 0;
+    }
     .big_box{
         width:100%;
         height:100vh;
@@ -145,15 +201,15 @@
         background: url(../../assets/img/address_bg_1.png) repeat-x;
         background-size: auto 100%;
     }
-    .box_item1>a>div{
+    .box_item1>div{
         padding:40px 0 48px;
     }
-    .box_item1>a>div>strong{
+    .box_item1>div>strong{
         font-weight: bold;
         position: relative;
         line-height:72px;
     }
-    .box_item1>a>div>strong::before{
+    .box_item1>div>strong::before{
         content: '';
         position: absolute;
         width:40px;
@@ -251,6 +307,7 @@
         width:200px;
         height:200px;
         float:left;
+        overflow: hidden;
 
     }
     .box_item3>ul>li>div:nth-child(1)>img{

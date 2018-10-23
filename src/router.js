@@ -59,6 +59,7 @@ export default new Router({
         children:[{
             path:'/cart/settle',
             component:SettleGoods,
+            name:'Settle',
             children:[{
                 path:'/cart/settle/site',
                 component:SiteGoods,

@@ -142,8 +142,7 @@
                     console.log(data)
                     this.data = data;
                 })
-
-
+                console.log(this.$route.path);
             }
         }
     }

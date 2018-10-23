@@ -11,13 +11,13 @@
             <div class="main-site-location">
                 <!--详细收货地址-->
                 <ul>
-                    <li>
+                    <li v-for="(item,index) in address" @click="chooseSite(item)" >
                         <h3>
-                            <strong>邱</strong>
-                            <b>15071423618</b>
-                            <span>默认</span>
+                            <strong>{{item.consignee}}</strong>
+                            <b>{{item.phoneNum}}</b>
+                            <span v-if="item.default" >默认</span>
                         </h3>
-                        <h4>上海上海市九干路蓝鸥科技有限公司</h4>
+                        <h4>{{item.site}}</h4>
                         <a href="javascript:void(0)">编辑</a>
                         <a href="javascript:void(0)">删除</a>
                     </li>
@@ -33,12 +33,25 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex'
     export default {
         name: "siteGoods",
         methods:{
             goLast(){
                 this.$router.go(-1)
+            },
+            chooseSite(item){
+                console.log(item);
+                this.$router.push({
+                    name:'Settle',
+                    params:{
+                        site:item
+                    }
+                });
             }
+        },
+        computed:{
+            ...mapState(["address"])
         }
     }
 </script>

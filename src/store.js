@@ -11,7 +11,8 @@ export default new Vuex.Store({
       isLogin:false, //控制有没有登录
       goodsId:[],
       chooseDel:false , //控制 是否删除商品的页面显示的 boolean
-      goodId:'' //点击确认删除 之前存储的商品id
+      goodId:'', //点击确认删除 之前存储的商品id
+      address:[] //存储用户的收货地址
   },
   mutations: {
       //登录页面处理方法，传过来用户电话
@@ -153,17 +154,17 @@ export default new Vuex.Store({
   actions: {
      // 用户登录时触发的异步请求
      getLogin(){
-         console.log(this.state.userName);
          axios({
              method:'post',
              url:'/api/login',
              data:{
                  userName:this.state.userName,
-                 goodsId:this.state.goodsId
+                 cartGoods:this.state.cartGoods
              }
          }).then(({data})=>{
              this.state.cartGoods = data.result.cartGoods;
-             console.log(data);
+             this.state.address = data.result.address;
+             console.log(this.state);
          })
      },
      // 用户已登录，点击加入购物车的异步请求
