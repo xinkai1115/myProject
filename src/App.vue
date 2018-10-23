@@ -1,3 +1,7 @@
+
+ <!--模板    html结构-->
+ <!--template这个标签我们可以用它包裹对应的一些内容，但是它并不会真正的渲染到DOM里面去-->
+ <!--template标签里面只能有一个根标签-->
 <template>
   <div id="app">
     <div>
@@ -19,6 +23,8 @@
   </div>
 </template>
 
+
+ <!--行为    处理逻辑-->
 <script>
     export default {
         name: 'app',
@@ -37,6 +43,8 @@
 
 </script>
 
+
+ <!--样式-->
 <style scoped>
 
   .footer_wrap{
