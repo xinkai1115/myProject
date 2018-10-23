@@ -478,6 +478,19 @@
         </section>
       </div>
     </div>
+    <!--点击领券之后出来的框-->
+    <div class="shadow" v-show="show">
+      <div class="zhezhao"></div>
+      <div class="shadow_box">
+        <!--点击领券之后出来图片-->
+        <img src="../assets/img/80_20180706.png" alt="" class="shadow_img">
+           <!--已经领取过优惠券出来的图片-->
+        <img src="../assets/img/no_code.png" alt="" class="no_code">
+        <router-link class="shadow_box_a1" to="/index/mytoken"></router-link>
+        <router-link class="shadow_box_a2" to="/home"></router-link>
+        <a href="#" class="shadow_box_a3" @click="show=!show"></a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -501,7 +514,8 @@ export default {
           randomNum:"",
           cakeData:null,
           toastData:null,
-          giftData:null
+          giftData:null,
+          show:false
       }
     },
     methods:{
@@ -510,6 +524,7 @@ export default {
       },
         login(){
           this.isLogin = true;
+          this.show = true;
           var arr = [1,2,3,4,5,6,7,8,9,0,"a","b","c","d","q","w","e","r","t","y","s","g","h","j","k"];
           var out = [];
           while(out.length < 4) {
@@ -571,6 +586,58 @@ export default {
 </script>
 
 <style scoped>
+  /*点击领券之后出来的框    CSS部分*/
+  .shadow{
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:400;
+  }
+  .zhezhao{
+    width:100%;
+    height:100%;
+    background-color:rgba(0, 0, 0, 0.6);
+  }
+  .shadow_box{
+    width: 80%;
+    position: absolute;
+    left: 10%;
+    top: 190px;
+    z-index:500;
+  }
+  .shadow_box>img{
+    width:100%;
+  }
+  .shadow_box_a1{
+    position: absolute;
+    width: 50%;
+    height: 12%;
+    left: 24%;
+    bottom: 45%;
+  }
+  .shadow_box_a2{
+    position: absolute;
+    width: 76%;
+    height: 19%;
+    bottom: 21%;
+    left: 12%;
+  }
+  .shadow_box_a3{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 49%;
+    margin-left: -16px;
+    bottom: -2px;
+  }
+  .shadow_img{
+    display:block;
+  }
+  .no_code{
+    display:none;
+  }
   .main{
     padding: 0 0 108px;
   }

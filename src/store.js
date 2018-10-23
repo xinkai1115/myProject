@@ -5,7 +5,7 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
+  state:{
       userName:'',  //用户名字
       cartGoods:[], // 已加入购物车商品的列表
       isLogin:false, //控制有没有登录

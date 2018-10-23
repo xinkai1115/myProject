@@ -47,6 +47,7 @@
         line-height:28px;
         height:56px;
         white-space: initial;
+        overflow:hidden;
     }
     .boxx>h4{
         font-size:22px;
