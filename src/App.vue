@@ -24,7 +24,7 @@
 </template>
 
 
- <!--行为    处理逻辑-->
+ <!--行为处理逻辑-->
 <script>
   import  {mapGetters} from 'vuex'
     export default {

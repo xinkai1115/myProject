@@ -97,6 +97,11 @@ export default new Vuex.Store({
                   item.isChoose=true;
               }
           })
+      },
+      //用户添加收货地址后更新总的收货地址
+      saveSite(state,data){
+          state.address = data;
+          console.log(data);
       }
   },
   getters:{

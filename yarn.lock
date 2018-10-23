@@ -6938,6 +6938,13 @@ uuid@^3.0.1, uuid@^3.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
 
+v-distpicker@^1.0.20:
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/v-distpicker/-/v-distpicker-1.0.20.tgz#56462cbbfa7696a4865cdba0d599acfae0f73c24"
+  integrity sha512-98YB+Kmh+8kuqfnELOuRVabz9KwoM9q9fVdwqbds3uh/mudiKN6f/IThCQLmSiXa7fQajuCs1I2l0meXreeBTA==
+  dependencies:
+    vue "^2.5.17"
+
 validate-npm-package-license@^3.0.1:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/validate-npm-package-license/-/validate-npm-package-license-3.0.4.tgz#fc91f6b9c7ba15c857f4cb2c5defeec39d4f410a"

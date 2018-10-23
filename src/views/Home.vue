@@ -37,6 +37,9 @@
           <div class="inner">
             <div class="swiper-container">
               <div class="swiper-wrapper">
+                <!--<div v-for="(item,index) in advertData" class="swiper-slide"><a href="">-->
+                  <!--<img :src="item.goodsImg" alt="">-->
+                <!--</a></div>-->
                 <div class="swiper-slide"><a href="">
                   <img src="../assets/img/a.jpg" alt="">
                 </a></div>
@@ -501,7 +504,8 @@ export default {
           randomNum:"",
           cakeData:null,
           toastData:null,
-          giftData:null
+          giftData:null,
+          advertData:null
       }
     },
     methods:{
@@ -514,7 +518,6 @@ export default {
           var out = [];
           while(out.length < 4) {
               var temp = parseInt(Math.random() * arr.length);
-              console.log(temp);
               out.push(arr[temp]);
           }
           this.randomNum = out.join("");
@@ -533,18 +536,19 @@ export default {
     created(){
         this.$http.get(`${this.$api}/list`).then(({data})=>{
             var arr = data.slice(0,8)
-            console.log(arr);
             this.cakeData = arr;
         })
         this.$http.get(`${this.$api}/list?uid=1000`).then(({data})=>{
             var arr = data.slice(0,4)
-            console.log(arr);
             this.giftData = arr;
         })
         this.$http.get(`${this.$api}/list?uid=100`).then(({data})=>{
             var arr = data.slice(0,4)
-            console.log(arr);
             this.toastData = arr;
+        })
+        this.$http.get(`${this.$api}/advert`).then(({data})=>{
+            console.log(data);
+            this.advertData = data;
         })
     },
     watch:{

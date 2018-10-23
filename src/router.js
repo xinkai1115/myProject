@@ -70,6 +70,7 @@ export default new Router({
                 component:SiteGoods,
                 children:[{
                     path:'/cart/settle/site/newsite',
+                    name:'newsite',
                     component:NewsiteGoods
                 }]
             }
