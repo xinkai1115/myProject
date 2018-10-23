@@ -6,9 +6,10 @@
         <div class="car-list">
             <div class="car-item" v-for="(item,index) in cartGoods" :key="index" >
                 <div class="car-info">
-                    <a href="#"></a>
+                    <!--点击取消商品，a标签加一个class名字active-->
+                    <a :class="item.isChoose?'':'active'" @click="chooseGood(item._id)"  href="javascript:void(0)"></a>
                     <div class="car-info-item">
-                        <a href="#">
+                        <a href="javascript:void(0)">
                             <div class="car-info-img"><img :src="item.goodsImg" alt=""></div>
                         </a>
                         <div>
@@ -16,17 +17,17 @@
                             <div>
                                 <p>每份含餐具五套</p>
                             </div>
-                            <div>￥198</div>
-                            <div>
-                                <a href="#" class="a_left"></a>
-                                <input type="number" readonly="readonly" value="1">
-                                <a href="#" class="a_right"></a>
+                            <div>￥{{item.goodsChoose.length?item.goodsChoose[0].goodsPrice:item.goodsPrice}}</div>
+                            <div >
+                                <a href="javascript:void(0)" @click="changeNum({add:'reduce',item:item})" :class="item.goodsNum>1? 'a_left active':'a_left'" ></a>
+                                <input type="number" readonly="readonly" :value="item.goodsNum">
+                                <a href="javascript:void(0)" @click="changeNum({add:'add',item:item})"  class="a_right"></a>
                             </div>
                         </div>
                     </div>
-                    <div class="info-more">
+                    <div class="info-more" v-show="item.type=='cake'?true:false" >
                         <h4><span>填写生日信息，免费赠送巧克力生日牌</span></h4>
-                        <h4>切分 - 9份</h4>
+                        <!--<h4>切分 - 9份</h4>-->
                     </div>
                 </div>
             </div>
@@ -150,17 +151,32 @@
                 <div class="box-weekly-middle"></div>
                 <!--结算去-->
                 <div class="box-weekly-main-item4">
-                    <div></div>
+                    <!--<div></div>-->
                     <div class="inner">
-                        <a href="#"></a>
-                        <div @click=""><router-link to="/cart/settle">结算</router-link></div>
+                        <a :class="chooseAll?'':'active'" @click="chooseAll1(chooseAll)" href="javascript:void(0)">全选</a>
+                        <div @click="hint"><a href="javascript:void(0)">结算</a></div>
                         <div>
-                            <span>应付:￥<p>210</p></span>
+                            <span>应付:￥<p>{{totalMoney}}</p></span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!--对已加购物车的商品删除的弹出的遮罩层-->
+        <div class="cart_del" v-show="chooseDel" >
+            <div class="del_bac" ></div>
+            <div class="del_con" >
+                <p>确定删除</p>
+                <div class="del_con_b" >
+                    <span @click="cancelDel" >取消</span>
+                    <span @click="sureDetail">确认</span>
+                </div>
+            </div>
+        </div>
+        <!--提交订单不满足要求的弹出信息-->
+        <transition name="fade" >
+            <div class="hintInfo" v-if="isHint" >请先购买商品</div>
+        </transition>
     </div>
 </template>
 
@@ -177,7 +193,7 @@
         components:{
             GoodsMain,
             MoreGoods,
-            SiftGoods
+            SiftGoods,
         },
         data(){
             return {
@@ -187,18 +203,43 @@
                 setMealCon:null, //套餐装吐司数据
                 recomGoods:null,//推荐商品
                 mountingData:null,//存储精品配件区的数据
-                upPriceData:null//存储加价区商品的数据
+                upPriceData:null,//存储加价区商品的数据
+                isHint:false
             }
         },
         computed:{
-            ...mapState(["cartGoods"]),
+
+            ...mapState(["cartGoods","chooseDel","isLogin"]),
             ...mapGetters({
                 hasGoods:'changeCart' // //控制购物车里是否有选择的产品
-            })
+            }),
+            ...mapGetters(["totalMoney","chooseAll"])
         },
         methods:{
-            ...mapMutations(["addCart"]),
-            ...mapActions(['sendGoods']),
+            ...mapMutations(["cancelDel","chooseGood","chooseAll1"]),
+            ...mapActions(['sendGoods',"changeNum","sureDetail"]),
+            hint(){
+              let num = 0;
+              this.cartGoods.forEach((item)=>{
+                 if(item.isChoose){
+                    num++;
+                 }
+              })
+              if(!num){
+                  this.isHint = true;
+                  var timer = setInterval(()=>{
+                      this.isHint = false;
+                      clearInterval(timer);
+                  },1000)
+              }else{
+                  if(!this.isLogin){
+                      this.$router.push({path:"/cart/login",query:{data:"settle"}});
+                  }else{
+                      this.$router.push("/cart/settle");
+                  }
+
+              }
+            },
             slectOther($event,test){
                 $("#choseBtn").children().each((index,item)=>{
                     $(item).attr("class","")
@@ -231,6 +272,78 @@
 </script>
 
 <style scoped>
+    .hintInfo{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        padding: 26px 15px;
+        background-color: rgba(0,0,0,0.8);
+        border-radius: 10px;
+        color: #fff;
+    }
+    .fade-enter-active{
+        animation: run 1s;
+    }
+    .fade-leave-active{
+        animation: run 1s reverse;
+    }
+    @keyframes run {
+        0%{
+           opacity: 0;
+        }
+        60%{
+            opacity: 1;
+        }
+        100%{
+            opacity: 1;
+        }
+    }
+    /*对已加购物车的商品列表的弹出的遮罩层*/
+    .car-list{
+        position: relative;
+        z-index: 0;
+    }
+    .cart_del{
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+        top: 0;
+        z-index: 10000;
+    }
+    .cart_del .del_con{
+        position: absolute;
+        width: 540px;
+        left: 50%;
+        margin-left: -270px;
+        background: #ffffff;
+        top: 20%;
+        font-size: 24px;
+        -webkit-border-radius: 20px;
+        border-radius: 20px;
+    }
+    .cart_del .del_con p{
+        text-align: center;
+        padding: 48px 60px 56px;
+        font-size: 26px;
+    }
+     .del_con_b{
+        display: flex;
+         border-top: 1px solid #dadade;
+    }
+    .cart_del .del_con .del_con_b span{
+        color: #ff4001;
+        font-size: 24px;
+        height: 88px;
+        line-height: 88px;
+        width: 50%;
+        text-align: center;
+    }
+    .cart_del .del_con .del_con_b span:nth-child(1){
+        border-right:  1px solid #dadade;
+    }
+    /*外层盒子*/
     .box{
         width:100%;
         position:relative;
@@ -592,16 +705,16 @@
     }
     .box-weekly-main-item4{
         width:100%;
-        height:120px;
+        height:100px;
         margin-top:20px;
         position:fixed;
         bottom:108px;
     }
-    .box-weekly-main-item4>div:nth-child(1){
-        width:100%;
-        height:20px;
-        background-color:white;
-    }
+    /*.box-weekly-main-item4>div:nth-child(1){*/
+        /*width:100%;*/
+        /*height:20px;*/
+        /*background-color:white;*/
+    /*}*/
     .box-weekly-middle{
         width:100%;
         height:20px;
@@ -610,11 +723,18 @@
     }
     .inner{
         width:100%;
-        height:calc(100% - 20px);
+        height:100%;
         background-color:white;
     }
     .inner>a{
         font-size:25px;
+        position: absolute;
+        padding-left: 40px;
+        width:80px;
+        line-height:32px;
+        top: 50%;
+        margin-top: -16px;
+        left:72px;
     }
     .inner>a::before{
         content: '';
@@ -625,24 +745,27 @@
         background-size:400px 400px;
         top: 60%;
         margin-top: -20px;
-        background-position: -160px -80px;
+        background-position: -200px -88px;
         left: 7%;
         margin-left: -20px;
     }
-    .inner>a::after{
-        position: absolute;
-        width:80px;
-        height:32px;
-        line-height:32px;
-        content: ' 全选 ';
-        top: 58%;
-        margin-top: -16px;
-        left:72px;
+    .inner>a.active::before{
+        background-position: -160px -80px;
     }
+    /*.inner>a::after{*/
+        /*position: absolute;*/
+        /*width:80px;*/
+        /*height:32px;*/
+        /*line-height:32px;*/
+        /*content: ' 全选 ';*/
+        /*top: 58%;*/
+        /*margin-top: -16px;*/
+        /*left:72px;*/
+    /*}*/
     .inner>div:nth-child(2){
          height:100%;
          width:200px;
-         background-color:#ff4001;
+        background-color: rgb(255, 64, 1);
          float:right;
         text-align:center;
         line-height:100px;
@@ -650,6 +773,9 @@
         font-size:25px;
         font-weight: normal;
      }
+    .inner>div:nth-child(2)>a{
+        color: #fff;
+    }
     .inner>div:nth-child(3){
         height:100%;
         width:200px;
@@ -776,10 +902,12 @@
         background-size: 400px 400px;
         top: 50%;
         margin-top: -20px;
-        background-position: -160px -80px;
         left: 50%;
         margin-left: -20px;
         background-position: -200px -80px;
+    }
+    .car-info>a.active::before{
+        background-position: -160px -80px;
     }
     .car-info-img{
         width:180px;
@@ -806,6 +934,9 @@
         height:60px;
         line-height:60px;
         font-size:28px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     .car-info-item>div>div:nth-child(2)>p{
         position: relative;
@@ -878,6 +1009,20 @@
         top: 50%;
         margin-top: -20px;
         background-position: -280px -80px;
+        left: 50%;
+        margin-left: -20px;
+    }
+    .car-info-item a.active::before{
+        content: '';
+        position: absolute;
+        width:40px;
+        height: 40px;
+        background: url(../assets/img/icons.png) no-repeat center;
+        -webkit-background-size: 400px 400px;
+        background-size: 400px 400px;
+        top: 50%;
+        margin-top: -20px;
+        background-position: 0 0;
         left: 50%;
         margin-left: -20px;
     }

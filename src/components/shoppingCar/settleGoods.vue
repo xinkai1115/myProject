@@ -18,18 +18,18 @@
           </div>
           <div class="box_item3">
               <ul>
-                  <li>
-                      <div><img src="../../assets/img/list7.jpg" alt=""></div>
+                  <li v-for="(item,index) in submitGoods" :key="index">
+                      <div><img :src="item.goodsImg" alt=""></div>
                       <div>
-                          <h3>雪域牛乳芝士蛋糕</h3>
+                          <h3>{{item.goodsName}}</h3>
                           <h4></h4>
                           <h5>
-                              <span>￥<strong>198.00</strong></span>
-                              <span>x<strong>1</strong></span>
+                              <span>￥<strong>{{item.goodsChoose.length?item.goodsChoose[0].goodsPrice:item.goodsPrice}}</strong></span>
+                              <span>x<strong>{{item.goodsNum}}</strong></span>
                           </h5>
                           <div>
-                              <p>每份含餐具五套</p>
-                              <p>金色蜡烛一根</p>
+                              <p>{{item.goodsChoose.length?item.goodsChoose[0].tableNum:item.goodsName}}</p>
+                              <p>{{item.goodsChoose.length?item.goodsChoose[0].goodsSize:item.goodsName}}</p>
                           </div>
                       </div>
                       <div></div>
@@ -94,8 +94,16 @@
 </template>
 
 <script>
+    import {mapGetters,mapState} from 'vuex'
     export default {
-        name: "settleGoods"
+        name: "settleGoods",
+        computed:{
+            ...mapState(["cartGoods"]),
+            ...mapGetters(["submitGoods"])
+        },
+        created(){
+            console.log(this.submitGoods);
+        }
     }
 </script>
 

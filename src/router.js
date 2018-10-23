@@ -72,6 +72,10 @@ export default new Router({
         {
             path:'/cart/checkmore',
             component:CheckMore
+        },
+        {
+            path:'/cart/login',
+            component:Login
         }
         ]
     },

@@ -10,7 +10,7 @@
         <li class="active"><router-link to="/">首页</router-link></li>
         <li><router-link :to="{path:'/list',query:{uid:1000}}">礼品馆</router-link></li>
         <li><router-link to="/list">蛋糕馆</router-link></li>
-        <li><router-link to="/cart">购物车 <span>1</span> </router-link></li>
+        <li><router-link to="/cart">购物车 <span v-if="chooseGoodsNum" >{{chooseGoodsNum}}</span> </router-link></li>
         <li><router-link to="/index">个人中心</router-link></li>
       </ul>
 
@@ -20,8 +20,12 @@
 </template>
 
 <script>
+  import  {mapGetters} from 'vuex'
     export default {
         name: 'app',
+        computed:{
+          ...mapGetters(["chooseGoodsNum"])
+        },
         mounted(){
             var btn = document.querySelectorAll(".wrap li");
             for (let i=0; i<btn.length; i++){
