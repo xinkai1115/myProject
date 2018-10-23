@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from 'vue'  //我们可以在vue脚手架当中直接将我们通过npm下载下来的模块导入进来使用
 import App from './App.vue'
 import router from './router'
 import store from './store'
