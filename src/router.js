@@ -23,6 +23,7 @@ import NewsiteGoods from "./components/shoppingCar/newsiteGoods"
 import GoodsDetail from './components/goodsDetail'
 import CheckMore from "./components/shoppingCar/CheckMore"
 import Login from './components/login'
+import GoodComments from './components/goodComments'
 
 
 Vue.use(Router)
@@ -49,7 +50,11 @@ export default new Router({
       component: GoodsList,
       children:[{
           path:'/list/detail',
-          component:GoodsDetail
+          component:GoodsDetail,
+          children:[{
+              path:'/list/detail/comments',
+              component:GoodComments
+          }]
       }]
     },
     {
