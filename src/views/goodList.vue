@@ -44,7 +44,6 @@
                 <div class="bottom_text">
                     <p>没有更多产品咯</p>
                 </div>
-                <!--<a href="javascript:void(0)" @click="toTop" class="global_back_top"></a>-->
                 <scroll-top></scroll-top>
             </section>
             <router-view></router-view>

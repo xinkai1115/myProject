@@ -54,12 +54,19 @@
                 if(value == code && !isNaN(phoneNum) && phoneNum.length == 11){
                     this.hint="登录成功"
                     this.showLogin(phoneNum);
-                    this.$router.go(-1);
-                    this.getLogin()
+                    // this.$router.go(-1);
+                    this.getLogin();
+                    if(this.$route.query.data=='settle'){
+                        this.$router.push("/cart/settle")
+                    }
                 }else{
                     this.hint="账号或密码错误"
                 }
             }
+        },
+        created(){
+
+
         }
     }
 </script>
@@ -75,7 +82,7 @@
         height:100vh;
         background-color:#ffffff;
         position:absolute;
-        z-index:100;
+        z-index:10000;
     }
     .main{
         padding:40px 32px;
