@@ -22,6 +22,8 @@ import SiteGoods from "./components/shoppingCar/siteGoods"
 import NewsiteGoods from "./components/shoppingCar/newsiteGoods"
 import GoodsDetail from './components/goodsDetail'
 import CheckMore from "./components/shoppingCar/CheckMore"
+import Login from './components/login'
+import GoodComments from './components/goodComments'
 
 
 Vue.use(Router)
@@ -48,7 +50,11 @@ export default new Router({
       component: GoodsList,
       children:[{
           path:'/list/detail',
-          component:GoodsDetail
+          component:GoodsDetail,
+          children:[{
+              path:'/list/detail/comments',
+              component:GoodComments
+          }]
       }]
     },
     {
@@ -71,13 +77,22 @@ export default new Router({
         {
             path:'/cart/checkmore',
             component:CheckMore
+        },
+        {
+            path:'/cart/login',
+            component:Login
         }
         ]
     },
     {
         path: '/index',
         name: 'PersonalCenter',
-        component:PersonalCenter
+        component:PersonalCenter,
+        children:[{
+            path:'/index/login',
+            component:Login
+
+        }]
     },
       {
           path:'/index/order',

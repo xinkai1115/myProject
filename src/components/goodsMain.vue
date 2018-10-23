@@ -4,12 +4,12 @@
                 <img :src="goodsData.goodsImg" alt="">
             </a>
                 <div class="p_info">
-                    <h3 class="p_name">雪域牛乳芝士蛋糕</h3>
-                    <h4 class="p_tag "><span class="tag">人气爆款</span></h4>
+                    <h3 class="p_name">{{goodsData.goodsName}}</h3>
+                    <h4 class="p_tag "><span class="tag" v-for="(item,index) in goodsData.goodsLabel" :key="index">{{item}}</span></h4>
                     <div class="price_wrap">
                         <p class="new_price">
                             <small>¥</small>
-                            198
+                            {{ goodsData.goodsChoose.length?goodsData.goodsChoose[0].goodsPrice:goodsData.goodsPrice }}
                         </p>
                     </div>
                 </div>

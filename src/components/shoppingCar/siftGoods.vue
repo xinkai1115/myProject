@@ -2,15 +2,19 @@
     <div class="boxx">
         <a href="#"><img :src="mountings.goodsImg" alt=""></a>
         <h3>{{mountings.goodsName}}</h3>
-        <h4><b>￥{{mountings.goodsPrice}}</b><i></i></h4>
+        <h4><b>￥{{mountings.goodsPrice}}</b><i @click="sendGoods(mountings)"></i></h4>
     </div>
 </template>
 
 <script>
+    import {mapActions} from 'vuex'
     export default {
         name: "siftGoods",
         props:{
             mountings:Object
+        },
+        methods:{
+            ...mapActions(["sendGoods"])
         }
     }
 </script>

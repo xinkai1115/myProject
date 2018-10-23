@@ -44,7 +44,6 @@
                 <div class="bottom_text">
                     <p>没有更多产品咯</p>
                 </div>
-                <!--<a href="javascript:void(0)" @click="toTop" class="global_back_top"></a>-->
                 <scroll-top></scroll-top>
             </section>
             <router-view></router-view>
@@ -56,6 +55,7 @@
     import GoodsMain from '../components/goodsMain'
     import  GoodsDetail from "../components/goodsDetail"
     import ScrollTop from '../components/goodsList/scrollTop'
+    import {mapActions} from 'vuex'
     export default {
         name: "goodList",
         components: {
@@ -76,6 +76,7 @@
         },
         methods:{
             // 点击销量，上新，综合，请求到不同的数据
+            ...mapActions(['sendGoodsId']),
             changeSort(e){
                 console.log(e);
                 this.$http.get(`${this.$api}/list?uid=${this.uid}&sort=${e}`).then(({data})=>{
