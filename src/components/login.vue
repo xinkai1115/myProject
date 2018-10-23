@@ -56,9 +56,21 @@
                     this.showLogin(phoneNum);
                     // this.$router.go(-1);
                     this.getLogin();
-                    if(this.$route.query.data=='settle'){
+                    let data = this.$route.query.data
+                    if(data=='settle'){
                         this.$router.push("/cart/settle")
+                    }else if(data=='order'){
+                        this.$router.push('/index/order')
+                    }else if(data=='mytoken'){
+                        this.$router.push('/index/mytoken')
+                    }else if(data=='mycard'){
+                        this.$router.push('/index/card')
+                    }else if(data=='myleclub'){
+                        this.$router.push('/index/myleclub')
+                    }else{
+                        this.$router.go(-1)
                     }
+
                 }else{
                     this.hint="账号或密码错误"
                 }
