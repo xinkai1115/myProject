@@ -30,7 +30,7 @@
                             </dl>
                             <div class="btn_wrap">
                                 <a @click="getToast" href="javascript:void(0)" id="resetBtn">重置</a>
-                                <a  @click="getToast" href="javascript:void(0)" id="submitBtn">确定</a>
+                                <a @click="getToast" href="javascript:void(0)" id="submitBtn">确定</a>
                             </div>
                         </div>
                     </transition>
