@@ -76,12 +76,12 @@
                                 </div>
                                 <div class="scroll_wrap" v-if="detailData.goodsChoose">
                                     <div class="goods_switch clear_fix">
-                                        <div  v-for="(item ,index) in detailData.goodsChoose" :key="index">
-                                            <a href="javascript:void(0)" @click="bor" class="switch_item active">
-                                                <span>建议</span>
-                                                <strong class="haipi">{{item.userNum}}</strong>
-                                            </a>
-                                        </div>
+                                        <!--<div  v-for="(item ,index) in detailData.goodsChoose" :key="index">-->
+                                            <!--<a href="javascript:void(0)"  class="switch_item active">-->
+                                                <!--<span>建议</span>-->
+                                                <!--<strong class="haipi">{{item.userNum}}</strong>-->
+                                            <!--</a>-->
+                                        <!--</div>-->
 
                                         <!--<a href="javascript:void(0)"  @click="bor" class="switch_item">-->
                                             <!--<span>建议</span>-->
@@ -309,7 +309,7 @@
                     <nav class="global_footer clear_fix">
                         <a href="#" class="card_btn" @click="car">购物车<span v-if="chooseGoodsNum" class="cart_num">{{chooseGoodsNum}}</span></a>
                         <a href="" class="udesk_btn">客服</a>
-                        <button class="addCard" @click="sendGoods(detailData)">加入购物车</button>
+                        <button class="addCard" @click="yes(detailData)">加入购物车</button>
                     </nav>
                 </div>
             </footer>
@@ -321,7 +321,7 @@
 <script>
     import ScrollTop from './goodsList/scrollTop'
     import { swiper, swiperSlide } from 'vue-awesome-swiper'
-    import {mapActions,mapGetters} from "vuex"
+    import {mapActions,mapGetters,mapState} from "vuex"
 
     export default {
         name: "goodsDetail",
@@ -356,25 +356,24 @@
             }
         },
         computed:{
+            ...mapState(["shows"]),
             ...mapGetters(["chooseGoodsNum"])
         },
         methods:{
+
             car(){
                 this.$router.push('/cart');
             },
            ...mapActions(['sendGoods']),
+            yes(item){
+                this.sendGoods(item);
+                this.show = !this.show;
+            },
           goBack(){
               this.$router.go(-1);
           },
           goHome(){
               this.$router.push("/home");
-          },
-          bor(){
-              var switch_item = document.querySelectorAll(".goods_switch .switch_item");
-              for (var i=0;i<switch_item.length;i++){
-                  switch_item[i].className = "switch_item";
-              }
-              this.className="switch_item active";
           }
         },
         // mounted(){
@@ -392,6 +391,7 @@
         // },
         created(){
             let goodsId = this.$route.query.goodsId;
+            console.log(goodsId);
             this.$http.get(`${this.$api}/detail?goodsId=${goodsId}`).then(({data})=>{
                 this.detailData = data;
                 console.log(data);

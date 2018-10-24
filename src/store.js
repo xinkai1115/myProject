@@ -11,6 +11,7 @@ export default new Vuex.Store({
       cartGoods:[], // 已加入购物车商品的列表
       isLogin:false, //控制有没有登录
       goodsId:[],
+      shows:false,
       chooseDel:false , //控制 是否删除商品的页面显示的 boolean
       goodId:'', //点击确认删除 之前存储的商品id
       address:[] //存储用户的收货地址
@@ -38,6 +39,7 @@ export default new Vuex.Store({
       //用户未登录时，点击加入购物车的处理函数，在actions里分发此方法
       sendGoods(state,item){
           var length = state.cartGoods.length;
+          state.shows = !state.shows
           if(!length){
               Vue.set(item,"goodsNum",1);
               Vue.set(item,"isChoose",true);
@@ -176,11 +178,13 @@ export default new Vuex.Store({
      // 用户已登录，点击加入购物车的异步请求
      sendGoods(context,item){
          if(this.state.userName){
+             this.state.shows = !this.state.shows;
              axios.post("/api/addCart",{
                  goodsId:item._id,
                  userName:this.state.userName
              }).then(({data})=>{
                  this.state.cartGoods = data.result.cartGoods;
+
              })
          }else{
              //用户未登录，分发同步的mutations->sendGoods
