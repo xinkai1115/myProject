@@ -8,34 +8,27 @@
                 </div>
             </div>
             <div class="box-main-site">
-                <div>
-                    <div><input type="text" placeholder="收货人姓名"></div>
-                    <div><input type="text" placeholder="收货人手机号码"></div>
-                    <div>
-                        <select name="" >
-                            <option disabled="disabled">请选择省</option>
-                            <option value="">上海</option>
-                            <option value="">浙江</option>
-                            <option value="">江苏</option>
-                            <option value="">北京</option>
-                        </select>
-                        <select name="" >
-                            <option disabled="disabled">请选择省</option>
-                            <option value="">上海</option>
-                        </select>
-                        <select name="" >
-                            <option disabled="disabled">请选择区县</option>
-                            <option value="">浦东区</option>
-                            <option value="">黄浦区</option>
-                            <option value="">松江区</option>
-                            <option value="">徐汇区</option>
-                        </select>
-                    </div>
-                    <div><input type="text" placeholder="详细地址"></div>
+                <!--点击修改地址出现的dom-->
+                <div v-if="site" >
+                    <div><input type="text" ref="name" :value="site.consignee" placeholder="收货人姓名"></div>
+                    <div><input type="text" ref="phone"  :value="site.phoneNum" placeholder="收货人手机号码"></div>
+                    <v-distpicker class="divwrap" @selected="onSelected"   :province="select.province" :city="select.city" :area="select.area"></v-distpicker>
+                    <div><input type="text" ref="address" :value="site.site" placeholder="详细地址"></div>
                     <div><input type="text" placeholder="门牌号"></div>
-                    <div><a href="javascript:void(0)">设为默认地址</a></div>
+                    <div><a :class="isDefault?'active':''" @click="isDefault=!isDefault" href="javascript:void(0)">设为默认地址</a></div>
                 </div>
-                <div><button>保存</button></div>
+                <div v-if="site"><button @click="upSave" >保存</button></div>
+                <!--点击新增地址出现的dom-->
+                <div v-if="!site">
+                    <div><input type="text" ref="name" placeholder="收货人姓名"></div>
+                    <div><input type="text" ref="phone"  placeholder="收货人手机号码"></div>
+                    <v-distpicker class="divwrap" @selected="onSelected"   :province="select.province" :city="select.city" :area="select.area"></v-distpicker>
+                    <div><input type="text" ref="address"  placeholder="详细地址"></div>
+                    <div><input type="text" placeholder="门牌号"></div>
+                    <!--点击设为默认地址a标签的class为active-->
+                    <div><a :class="isDefault?'active':''" @click="isDefault=!isDefault" href="javascript:void(0)">设为默认地址</a></div>
+                </div>
+                <div v-if="!site"><button @click="saveUp" >保存</button></div>
                 <div>
                     <h2>配送区域说明</h2>
                     <p>1.郊环线内（A30）：免费配送；</p>
@@ -45,21 +38,163 @@
                 </div>
             </div>
         </div>
+        <transition name="fade" >
+            <div class="hintInfo" v-if="isHint" >{{hintInfo}}</div>
+        </transition>
     </div>
 </template>
 
 <script>
+    import VDistpicker from 'v-distpicker'
+    import {mapState,mapMutations} from 'vuex'
     export default {
         name: "newsiftGoods",
-        methods:{
-            goLast(){
-                this.$router.go(-1)
+        data(){
+          return {
+              site:null,
+              index:0,
+              isDefault:false,
+              isHint:false,
+              hintInfo:"hehehehe",
+              select: { province: '广东省', city: '广州市', area: '海珠区' }
             }
+        },
+        computed:{
+            ...mapState(['userName'])
+        },
+        components:{
+            VDistpicker
+        },
+        methods:{
+            ...mapMutations(["saveSite"]),
+            goLast(){
+                this.$router.go(-1);
+            },
+            onSelected(data) {
+                this.select.province=data.province.value;
+                this.select.city=data.city.value;
+                this.select.area=data.area.value;
+            },
+            saveUp(){
+                if(!this.$refs.name.value){
+                    this.isHint = true;
+                    this.hintInfo = "请填写收货人";
+                }else if(!this.$refs.phone.value){
+                    this.isHint = true;
+                    this.hintInfo = "手机号不能为空";
+                }else if(isNaN(this.$refs.phone.value) || this.$refs.phone.value.length != 11){
+                    this.isHint = true;
+                    this.hintInfo = "手机号格式不正确";
+                }else if(!this.$refs.address.value){
+                    this.isHint = true;
+                    this.hintInfo = "请填写详细信息";
+                }else{
+                    let obj = {
+                        consignee:this.$refs.name.value,
+                        phoneNum:this.$refs.phone.value,
+                        site:this.select.province+this.select.city+this.select.area+this.$refs.address.value,
+                        default:this.isDefault
+                    }
+                    this.$http.post(`${this.$api}/address`,{
+                        userName:this.userName,
+                        site:obj
+                    }).then(({data})=>{
+                        this.saveSite(data.result);
+                        this.$router.go(-1);
+                    })
+                }
+                var timer = setInterval(()=>{
+                    this.isHint = false;
+                    clearInterval(timer);
+                },1000)
+            },
+            upSave(){
+                if(!this.$refs.name.value){
+                    this.isHint = true;
+                    this.hintInfo = "请填写收货人";
+                }else if(!this.$refs.phone.value){
+                    this.isHint = true;
+                    this.hintInfo = "手机号不能为空";
+                }else if(isNaN(this.$refs.phone.value) || this.$refs.phone.value.length != 11){
+                    this.isHint = true;
+                    this.hintInfo = "手机号格式不正确";
+                }else if(!this.$refs.address.value){
+                    this.isHint = true;
+                    this.hintInfo = "请填写详细信息";
+                }else{
+                    let obj = {
+                        consignee:this.$refs.name.value,
+                        phoneNum:this.$refs.phone.value,
+                        site:this.select.province+this.select.city+this.select.area+this.$refs.address.value,
+                        default:this.isDefault
+                    }
+                    this.$http.post(`${this.$api}/upsetSite`,{
+                        userName:this.userName,
+                        index:this.index,
+                        site:obj
+                    }).then(({data})=>{
+                        this.saveSite(data.result);
+                        this.$router.go(-1);
+                    })
+                }
+                var timer = setInterval(()=>{
+                    this.isHint = false;
+                    clearInterval(timer);
+                },1000)
+            }
+        },
+        created(){
+            this.site=this.$route.params.site;
+            this.index= this.$route.params.index;
         }
     }
 </script>
 
 <style lang="less" scoped>
+    .hintInfo{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        padding: 26px 15px;
+        background-color: rgba(0,0,0,0.8);
+        border-radius: 10px;
+        color: #fff;
+    }
+    .fade-enter-active{
+        animation: run 1s;
+    }
+    .fade-leave-active{
+        animation: run 1s reverse;
+    }
+    @keyframes run {
+        0%{
+            opacity: 0;
+        }
+        60%{
+            opacity: 1;
+        }
+        100%{
+            opacity: 1;
+        }
+    }
+    @deep: ~'>>>';
+    .divwrap{
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0px !important;
+        @{deep}select{
+            width: 30%;
+            font-size: 10px;
+            padding: 0px;
+            border: 0;
+            option{
+                width: 100%;
+            }
+        }
+    }
+
+
     .box{
         width:100%;
         height:100vh;
@@ -67,6 +202,7 @@
         background-color:white;
         z-index:302;
         background-color:#f5f5f5;
+        overflow: scroll;
     }
     .header{
         width:100%;
@@ -180,6 +316,9 @@
         margin-top: -20px;
         background-position: -160px -200px;
         left: -6px;
+    }
+    .box-main-site>div:nth-child(1)>div:nth-child(6)>a.active::before{
+        background-position: -120px -200px;
     }
     .box-main-site>div:nth-child(2)>button{
         display: block;

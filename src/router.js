@@ -24,6 +24,7 @@ import GoodsDetail from './components/goodsDetail'
 import CheckMore from "./components/shoppingCar/CheckMore"
 import Login from './components/login'
 import GoodComments from './components/goodComments'
+import ExitLogin from "./components/personalCenter/exitLogin"
 
 
 Vue.use(Router)
@@ -71,6 +72,7 @@ export default new Router({
                 component:SiteGoods,
                 children:[{
                     path:'/cart/settle/site/newsite',
+                    name:'newsite',
                     component:NewsiteGoods
                 }]
             }
@@ -93,7 +95,9 @@ export default new Router({
         children:[{
             path:'/index/login',
             component:Login
-
+        },{
+            path:'/index/exitlogin',
+            component:ExitLogin
         }]
     },
       {

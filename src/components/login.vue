@@ -92,12 +92,18 @@
     .login-main{
         width:100%;
         height:100vh;
+        position: fixed;
         background-color:#ffffff;
-        position:absolute;
+        overflow: hidden;
+        top: 0;
+        bottom: 0;
         z-index:10000;
     }
     .main{
+        position: relative;
+        height: 100%;
         padding:40px 32px;
+
     }
     .main-header>p{
         position: relative;

@@ -68,7 +68,7 @@
           <div class="box_item7">
               <h3>
                   <b>商品金额</b>
-                  <span>￥198.00</span>
+                  <span>￥{{totalMoney}}</span>
               </h3>
               <h3>
                   <b>运费</b>
@@ -89,7 +89,7 @@
           </div>
           <footer class="box_footer">
                <div>
-                   <strong>实付:￥198.00</strong>
+                   <strong>实付:￥{{totalMoney}}</strong>
                    <button>结算</button>
                </div>
            </footer>
@@ -108,7 +108,16 @@
         },
         computed:{
             ...mapState(["cartGoods"]),
-            ...mapGetters(["submitGoods"])
+            ...mapGetters(["submitGoods"]),
+            totalMoney(){
+                var money = 0;
+                this.submitGoods.forEach((item)=>{
+                    var price = item.goodsChoose.length?item.goodsChoose[0].goodsPrice:item.goodsPrice;
+                    money+=(price*item.goodsNum);
+                })
+                return money;
+            }
+
         },
         created(){
 

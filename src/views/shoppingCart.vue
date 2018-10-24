@@ -578,6 +578,9 @@
         line-height: 0;
         visibility: hidden;
     }
+    .box-weekly-main-item1>div:nth-child(3)>ul>li>div{
+       width:23.1%;
+    }
     .join-car{
         display: block;
         margin:20px auto 0;

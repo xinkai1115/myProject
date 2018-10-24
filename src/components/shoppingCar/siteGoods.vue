@@ -11,52 +11,152 @@
             <div class="main-site-location">
                 <!--详细收货地址-->
                 <ul>
-                    <li v-for="(item,index) in address" @click="chooseSite(item)" >
-                        <h3>
+                    <li v-for="(item,index) in address"  >
+                        <h3  @click="chooseSite(item)">
                             <strong>{{item.consignee}}</strong>
                             <b>{{item.phoneNum}}</b>
                             <span v-if="item.default" >默认</span>
+                            <span v-if="item.isChoose" >已选中</span>
                         </h3>
-                        <h4>{{item.site}}</h4>
-                        <a href="javascript:void(0)">编辑</a>
-                        <a href="javascript:void(0)">删除</a>
+                        <h4  @click="chooseSite(item)">{{item.site}}</h4>
+                        <a href="javascript:void(0)" @click="upSetSite(item,index)" >编辑</a>
+                        <a href="javascript:void(0)" @click="removeSite(index)" >删除</a>
                     </li>
                 </ul>
             </div>
             <div class="main-site-footer">
-                <router-link to="/cart/settle/site/newsite">
-                    <span>新增地址</span>
-                </router-link>
+                <a href="javascript:void(0)" @click="addSite"  >
+                    <span >新增地址</span>
+                </a>
+            </div>
+        </div>
+        <!--对收货地址删除的弹出的遮罩层-->
+        <div class="cart_del" v-show="chooseDel" >
+            <div class="del_bac" ></div>
+            <div class="del_con" >
+                <p>确定删除</p>
+                <div class="del_con_b" >
+                    <span @click="cancelDel" >取消</span>
+                    <span @click="sureDetail">确认</span>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import {mapState} from 'vuex'
+    import {mapState,mapMutations} from 'vuex'
     export default {
         name: "siteGoods",
+        data(){
+          return {
+              chooseDel:false,
+              index:0
+          }
+        },
         methods:{
+            ...mapMutations(["saveSite"]),
             goLast(){
                 this.$router.go(-1)
             },
             chooseSite(item){
-                console.log(item);
                 this.$router.push({
                     name:'Settle',
                     params:{
                         site:item
                     }
                 });
+                if(this.address.isChoose){
+                    this.$set(this.address,"isChoose",true)
+                }else{
+                    this.address.forEach((item1)=>{
+                        item1.isChoose = false;
+                    })
+                    item.isChoose = true;
+                }
+            },
+            upSetSite(item,index){
+                this.$router.push({
+                    name:'newsite',
+                    params:{
+                        site:item,
+                        index:index
+                    }
+                });
+            },
+            addSite(){
+                this.$router.push({
+                    name:'newsite'
+                });
+            },
+            removeSite(index){
+                this.index = index;
+                this.chooseDel = true;
+            },
+            cancelDel(){
+                this.chooseDel = false;
+            },
+            sureDetail(){
+                this.$http.post(`${this.$api}/removeSite`,{
+                    userName:this.userName,
+                    index:this.index
+                }).then(({data})=>{
+                    this.saveSite(data.result);
+                    this.chooseDel = false;
+                })
             }
         },
         computed:{
-            ...mapState(["address"])
+            ...mapState(["address","userName"])
         }
     }
 </script>
 
 <style lang="less" scoped>
+    /*对收货地址删除的弹出的遮罩层*/
+    .car-list{
+        position: relative;
+        z-index: 0;
+    }
+    .cart_del{
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+        top: 0;
+        z-index: 10000;
+    }
+    .cart_del .del_con{
+        position: absolute;
+        width: 540px;
+        left: 50%;
+        margin-left: -270px;
+        background: #ffffff;
+        top: 20%;
+        font-size: 24px;
+        -webkit-border-radius: 20px;
+        border-radius: 20px;
+    }
+    .cart_del .del_con p{
+        text-align: center;
+        padding: 48px 60px 56px;
+        font-size: 26px;
+    }
+    .del_con_b{
+        display: flex;
+        border-top: 1px solid #dadade;
+    }
+    .cart_del .del_con .del_con_b span{
+        color: #ff4001;
+        font-size: 24px;
+        height: 88px;
+        line-height: 88px;
+        width: 50%;
+        text-align: center;
+    }
+    .cart_del .del_con .del_con_b span:nth-child(1){
+        border-right:  1px solid #dadade;
+    }
      .main{
          width:100%;
          height:100%;
@@ -116,6 +216,7 @@
          position: relative;
          padding: 20px 120px 24px 0;
          border-bottom:0;
+         border-bottom: 2px solid #9c9c9c;
      }
      .main-site-location>ul>li>h3{
          margin-bottom:12px;
@@ -179,7 +280,7 @@
              border-radius: 2px;
              display: inline-block;
              vertical-align: middle;
-             margin-left:5px;
+             margin-left:10px;
          }
      }
      .main-site-footer{

@@ -78,9 +78,7 @@
             // 点击销量，上新，综合，请求到不同的数据
             ...mapActions(['sendGoodsId']),
             changeSort(e){
-                console.log(e);
                 this.$http.get(`${this.$api}/list?uid=${this.uid}&sort=${e}`).then(({data})=>{
-                    console.log(data)
                     this.data = data;
                 })
                 window.scrollTo(0,0);
@@ -107,7 +105,6 @@
             var filter_wrap = document.querySelector(".filter_wrap");
             var clear_fix_a = document.querySelectorAll(".clear_fix a");
             var clear_fix_dd = document.querySelectorAll(".filter_wrap .clear_fix dd");
-            console.log(clear_fix_dd);
             for (var i = 0;i<clear_fix_a.length;i++){
                 clear_fix_a[i].onclick = function () {
                     for (var j = 0;j<clear_fix_a.length;j++){
@@ -129,7 +126,6 @@
             var uid = this.$route.query.uid;
             this.uid=uid;
             this.$http.get(`${this.$api}/list?uid=${uid}`).then(({data})=>{
-                console.log(data)
                 this.data = data;
             })
         },
@@ -137,12 +133,14 @@
             $route(){
                 var uid = this.$route.query.uid;
                 this.uid=uid;
-                this.isChoose = this.uid=="1000"?false:true;
+                this.isChoose = this.uid!="1000"?true:false;
+                if(!uid){
+                    this.isChoose = true;
+                }
+                console.log(12133);
                 this.$http.get(`${this.$api}/list?uid=${uid}`).then(({data})=>{
-                    console.log(data)
                     this.data = data;
                 })
-                console.log(this.$route.path);
             }
         }
     }
