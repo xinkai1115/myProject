@@ -100,7 +100,7 @@
                                 </div>
                             </li>
                         </ul>
-                        <a href="#" class="join-car">加入购物车</a>
+                        <a href="javascript:void(0)" @click="sendGoods(setMealCon[2])" class="join-car">加入购物车</a>
                     </div>
                     <div v-show="isSetMeal" >
                         <h4>

@@ -127,6 +127,7 @@ export default new Vuex.Store({
       logOut1(state){
           state.isLogin = false;
           state.cartGoods = [];
+          state.userName = '';
           var obj = {
               userName:"",
               cartGoods:[],

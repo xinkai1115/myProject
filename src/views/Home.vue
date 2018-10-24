@@ -482,9 +482,9 @@
       </div>
     </div>
     <!--点击领券之后出来的框-->
-    <div class="shadow" v-show="show">
-      <div class="zhezhao"></div>
-      <div class="shadow_box">
+    <div class="shadow" v-if="show">
+      <div v-if="show" class="zhezhao"></div>
+      <div v-if="show" class="shadow_box">
         <!--点击领券之后出来图片-->
         <img src="../assets/img/80_20180706.png" alt="" class="shadow_img">
            <!--已经领取过优惠券出来的图片-->
@@ -492,6 +492,17 @@
         <router-link class="shadow_box_a1" to="/index/mytoken"></router-link>
         <router-link class="shadow_box_a2" to="/home"></router-link>
         <a href="#" class="shadow_box_a3" @click="show=!show"></a>
+      </div>
+    </div>
+    <!--对已加购物车的商品删除的弹出的遮罩层-->
+    <div class="cart_del" v-show="chooseDel" >
+      <div class="del_bac" ></div>
+      <div class="del_con" >
+        <p>当前登录用户为{{userName}}，确认领取？</p>
+        <div class="del_con_b" >
+          <span @click="changeUser" >切换账号</span>
+          <span @click="sureDetail">确认领取</span>
+        </div>
       </div>
     </div>
   </div>
@@ -502,10 +513,9 @@
 import GoodsMain from '../components/goodsMain'
 import Handlerbtn from '../components/home/handler_btn'
 import Swiper from 'swiper';
-
+import {mapMutations,mapActions,mapState} from 'vuex'
 export default {
   name: 'home',
-
   components: {
       GoodsMain,
       Handlerbtn
@@ -519,30 +529,59 @@ export default {
           toastData:null,
           giftData:null,
           advertData:null,
-          show:false
+          show:false,
+          chooseDel:false
       }
     },
+    computed:{
+        ...mapState(["userName"])
+    },
     methods:{
+      ...mapMutations({
+          showLogin:'login'
+      }),
+      ...mapActions(['getLogin']),
+        changeUser(){
+          this.chooseDel = false;
+          this.isLogin = true;
+            var arr = [1,2,3,4,5,6,7,8,9,0,"a","b","c","d","q","w","e","r","t","y","s","g","h","j","k"];
+            var out = [];
+            while(out.length < 4) {
+                var temp = parseInt(Math.random() * arr.length);
+                out.push(arr[temp]);
+            }
+            this.randomNum = out.join("");
+
+        },
+        sureDetail(){
+
+        },
       aaa(){
           this.a=true
       },
         login(){
-          this.isLogin = true;
-          this.show = true;
-          var arr = [1,2,3,4,5,6,7,8,9,0,"a","b","c","d","q","w","e","r","t","y","s","g","h","j","k"];
-          var out = [];
-          while(out.length < 4) {
-              var temp = parseInt(Math.random() * arr.length);
-              out.push(arr[temp]);
+          if(this.userName){
+              this.chooseDel = true;
+          }else{
+              this.isLogin = true;
+              // this.show = true;
+              var arr = [1,2,3,4,5,6,7,8,9,0,"a","b","c","d","q","w","e","r","t","y","s","g","h","j","k"];
+              var out = [];
+              while(out.length < 4) {
+                  var temp = parseInt(Math.random() * arr.length);
+                  out.push(arr[temp]);
+              }
+              this.randomNum = out.join("");
           }
-          this.randomNum = out.join("");
         },
         confirmLogin(){
           let userName = this.$refs.num.value;
           var code = this.$refs.code.value;
-            console.log(code);
             if(this.randomNum == code){
                 console.log("登录成功");
+                this.showLogin(userName);
+                this.getLogin();
+                this.isLogin = false;
             }else{
                 console.log("登录失败");
             }
@@ -590,6 +629,45 @@ export default {
 </script>
 
 <style scoped>
+  .cart_del{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    top: 0;
+    z-index: 10000;
+  }
+  .cart_del .del_con{
+    position: absolute;
+    width: 540px;
+    left: 50%;
+    margin-left: -270px;
+    background: #ffffff;
+    top: 20%;
+    font-size: 24px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+  }
+  .cart_del .del_con p{
+    text-align: center;
+    padding: 48px 60px 56px;
+    font-size: 26px;
+  }
+  .del_con_b{
+    display: flex;
+    border-top: 1px solid #dadade;
+  }
+  .cart_del .del_con .del_con_b span{
+    color: #ff4001;
+    font-size: 24px;
+    height: 88px;
+    line-height: 88px;
+    width: 50%;
+    text-align: center;
+  }
+  .cart_del .del_con .del_con_b span:nth-child(1){
+    border-right:  1px solid #dadade;
+  }
   /*点击领券之后出来的框    CSS部分*/
   .shadow{
     width:100%;
@@ -637,13 +715,14 @@ export default {
     bottom: -2px;
   }
   .shadow_img{
-    display:block;
+    display:none;
   }
   .no_code{
     display:none;
   }
   .main{
     padding: 0 0 108px;
+
   }
   .home{
     position: relative;
@@ -980,7 +1059,7 @@ export default {
     left: 10%;
     transform: translateY(-50%);
     padding: 40px 32px;
-    top: 20%;
+    top: 40%;
     box-sizing: border-box;
   }
   .close_login_pop{

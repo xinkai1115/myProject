@@ -26,6 +26,7 @@ import Login from './components/login'
 import GoodComments from './components/goodComments'
 import ExitLogin from "./components/personalCenter/exitLogin"
 
+import PayPage from './components/shoppingCar/payPage'
 
 Vue.use(Router)
 
@@ -84,6 +85,10 @@ export default new Router({
         {
             path:'/cart/login',
             component:Login
+        },
+        {
+            path:'/cart/pay',
+            component:PayPage
         }
         ]
     },
