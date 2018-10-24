@@ -32,7 +32,7 @@
                                     {{ detailData.goodsName }}
                                 </h2>
                             </div>
-                            <div class="spec" v-if="detailData.goodsTaste?true:false">
+                            <div class="spec" v-if="detailData.goodsTaste">
                                 <p class="taste">
                                     口味：{{ detailData.goodsTaste }}
                                 </p>
@@ -64,26 +64,29 @@
                             <div class="content_spec">
                                 <div class="header_goodsInfo">
                                     <div class="goods_img">
-                                        <img src="https://imagecdn.lapetit.cn/postsystem/docroot/images/goods/201706/15474/list_15474.jpg" alt="">
+                                        <img :src="detailData.goodsImg" alt="">
                                     </div>
                                     <div class="goods_name">
-                                        <p class="name">美刀刀蛋糕</p>
+                                        <p class="name">{{detailData.goodsName}}</p>
                                         <p class="price">
                                             <span>￥</span>
-                                            298
+                                            {{detailData.goodsChoose?detailData.goodsChoose[0].goodsPrice:detailData.goodsPrice}}
                                         </p>
                                     </div>
                                 </div>
-                                <div class="scroll_wrap">
+                                <div class="scroll_wrap" v-if="detailData.goodsChoose">
                                     <div class="goods_switch clear_fix">
-                                        <a href="javascript:void(0)" @click="bor" class="switch_item active">
-                                            <span>建议</span>
-                                            <strong class="haipi">5-8人食</strong>
-                                        </a>
-                                        <a href="javascript:void(0)"  @click="bor" class="switch_item">
-                                            <span>建议</span>
-                                            <strong class="haipi">12-16人食</strong>
-                                        </a>
+                                        <div  v-for="(item ,index) in detailData.goodsChoose" :key="index">
+                                            <a href="javascript:void(0)" @click="bor" class="switch_item active">
+                                                <span>建议</span>
+                                                <strong class="haipi">{{item.userNum}}</strong>
+                                            </a>
+                                        </div>
+
+                                        <!--<a href="javascript:void(0)"  @click="bor" class="switch_item">-->
+                                            <!--<span>建议</span>-->
+                                            <!--<strong class="haipi">12-16人食</strong>-->
+                                        <!--</a>-->
                                     </div>
                                     <div class="goods_list">
                                         <div class="goods_item">
@@ -107,94 +110,16 @@
                                     <section class="group_buy">
                                         <div class="inner_group">
                                             <h3>组合购</h3>
-                                            <div class="group_item">
+                                            <div class="group_item" v-for="(item ,index) in add">
                                                 <p class="img_wrap">
-                                                    <img src="https://imagecdn.lapetit.cn/postsystem/docroot/images/goods/201809/18391/list_18391.jpg?v=1537340350" alt="">
+                                                    <img :src="item.goodsImg" alt="">
                                                 </p>
                                                 <div class="group_info">
-                                                    <p class="name no_wrap">哇哦！吐司</p>
+                                                    <p class="name no_wrap">{{item.goodsName}}</p>
                                                     <div class="g_price">
-                                                        <i class="orange">+￥9.9</i>
+                                                        <i class="orange">+{{item.lowPrice}}</i>
                                                         <strong>限时抢</strong>
-                                                        <i class="old_price">&nbsp;￥78</i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="group_item">
-                                                <p class="img_wrap">
-                                                    <img src="https://imagecdn.lapetit.cn/postsystem/docroot/images/goods/201809/18391/list_18391.jpg?v=1537340350" alt="">
-                                                </p>
-                                                <div class="group_info">
-                                                    <p class="name no_wrap">哇哦！吐司</p>
-                                                    <div class="g_price">
-                                                        <i class="orange">+￥9.9</i>
-                                                        <strong>限时抢</strong>
-                                                        <i class="old_price">&nbsp;￥78</i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="group_item">
-                                                <p class="img_wrap">
-                                                    <img src="https://imagecdn.lapetit.cn/postsystem/docroot/images/goods/201809/18391/list_18391.jpg?v=1537340350" alt="">
-                                                </p>
-                                                <div class="group_info">
-                                                    <p class="name no_wrap">哇哦！吐司</p>
-                                                    <div class="g_price">
-                                                        <i class="orange">+￥9.9</i>
-                                                        <strong>限时抢</strong>
-                                                        <i class="old_price">&nbsp;￥78</i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="group_item">
-                                                <p class="img_wrap">
-                                                    <img src="https://imagecdn.lapetit.cn/postsystem/docroot/images/goods/201809/18391/list_18391.jpg?v=1537340350" alt="">
-                                                </p>
-                                                <div class="group_info">
-                                                    <p class="name no_wrap">哇哦！吐司</p>
-                                                    <div class="g_price">
-                                                        <i class="orange">+￥9.9</i>
-                                                        <strong>限时抢</strong>
-                                                        <i class="old_price">&nbsp;￥78</i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="group_item">
-                                                <p class="img_wrap">
-                                                    <img src="https://imagecdn.lapetit.cn/postsystem/docroot/images/goods/201809/18391/list_18391.jpg?v=1537340350" alt="">
-                                                </p>
-                                                <div class="group_info">
-                                                    <p class="name no_wrap">哇哦！吐司</p>
-                                                    <div class="g_price">
-                                                        <i class="orange">+￥9.9</i>
-                                                        <strong>限时抢</strong>
-                                                        <i class="old_price">&nbsp;￥78</i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="group_item">
-                                                <p class="img_wrap">
-                                                    <img src="https://imagecdn.lapetit.cn/postsystem/docroot/images/goods/201809/18391/list_18391.jpg?v=1537340350" alt="">
-                                                </p>
-                                                <div class="group_info">
-                                                    <p class="name no_wrap">哇哦！吐司</p>
-                                                    <div class="g_price">
-                                                        <i class="orange">+￥9.9</i>
-                                                        <strong>限时抢</strong>
-                                                        <i class="old_price">&nbsp;￥78</i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="group_item">
-                                                <p class="img_wrap">
-                                                    <img src="https://imagecdn.lapetit.cn/postsystem/docroot/images/goods/201809/18391/list_18391.jpg?v=1537340350" alt="">
-                                                </p>
-                                                <div class="group_info">
-                                                    <p class="name no_wrap">哇哦！吐司</p>
-                                                    <div class="g_price">
-                                                        <i class="orange">+￥9.9</i>
-                                                        <strong>限时抢</strong>
-                                                        <i class="old_price">&nbsp;￥78</i>
+                                                        <i class="old_price">&nbsp;￥{{item.goodsPrice}}</i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -202,18 +127,18 @@
                                     </section>
                                 </div>
                                 <div class="btn_wrap">
-                                    <button class="buyFlag">立即购买</button>
-                                    <button class="addCart">加入购物车</button>
+                                    <button class="buyFlag" @click="car">立即购买</button>
+                                    <button class="addCart" @click="sendGoods(detailData)">加入购物车</button>
                                 </div>
                             </div>
                         </div>
                     </transition>
                 </section>
                 <div class="promotions" @click="show1=!show1"  v-if="detailData.promation">
-                    <div class="inner">
+                    <div class="inner" v-if="detailData.promation>0">
                         <strong>促销</strong>
                         <div class="content">
-                            <span class="promotion_content">{{detailData.promation[0].title}}</span>
+                            <span class="promotion_content" v-for="(item ,index) in detailData.promation">{{item.title}}</span>
                         </div>
                     </div>
                 </div>
@@ -225,32 +150,23 @@
                         <div class="pop_wrapper_inner list active" v-show="show1">
                             <span class="close" @click="show1=!show1"></span>
                             <div class="content_invoice">
-                                <div class="invoice_item">
-                                    <h3>9.9元加购吐司</h3>
+                                <div class="invoice_item" v-for="(item ,index) in detailData.promation">
+                                    <h3>{{item.title}}</h3>
                                     <p>
-                                        【玩转舌尖 纵享魔力】2018.9.30-2018.10.30下单且不晚于10.31配送的蛋糕订单，每单可9.9元加价购「哇哦！吐司」1份，先到先得，不与其他优惠同享。
+                                        {{item.con}}
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </transition>
                 </section>
-                <div class="desc_col goods_comments comments_example">
+                <div class="desc_col goods_comments comments_example" v-if="this.detailData.apprInfo">
                     <div class="inner">
                         <h2>
                             <span>用户评论</span>
                             <router-link to="/list/detail/comments">看看大家怎么说</router-link>
                             <!--<a href="">看看大家怎么说</a>-->
                         </h2>
-                        <!--<div class="comments_item">-->
-                            <!--<div class="comment_title">-->
-                                <!--<img src="../assets/img/avatar1.png" class="avatar" alt="">-->
-                                <!--<span>188***5012</span>-->
-                                <!--<span>5-8人食</span>-->
-                                <!--<span class="f_right">2018-10-19 10:02:03</span>-->
-                            <!--</div>-->
-                            <!--<div class="comment_content">好呢</div>-->
-                        <!--</div>-->
                         <div class="comments_item" v-for="(item,index) in apprInfo">
                             <div class="comment_title">
                                 <img :src="item.userImg" class="avatar" alt="">
@@ -271,15 +187,20 @@
                 </div>
                 <section class="goods_desc">
                     <p>&nbsp;</p>
-                    <div class="desc_col">
-                        <h2>找寻心中的美味</h2>
+                    <div class="desc_col" v-if="detailData.searchDec">
+                        <h2>{{ detailData.searchDec.title }}</h2>
                         <div class="imgDesc_wrap">
-                            <img src="http://www.lecake.com/postsystem/docroot/images/goods/CEEFCB6DE21DFE34C8918E20EDD6720B.jpg" alt="">
+                            <img :src="'http://wx01.lecake.com/'+detailData.searchDec.imgUrl" alt="">
                         </div>
-                        <p class="goods_intro">芝士与香草戚风被雪域奶油的浪漫笼罩，每一口都充满快乐的滋味，撩拨起无限的食欲，让味蕾懂得了心跳的感觉。</p>
-                        <div class="auto_height">
-                            <img class="auto_pos" @click="show2=!show2" v-show="show2" style="z-index: 2" src="../assets/img/meidaodao_poster.jpg" alt="">
-                            <video class="auto_pos" controls preload="auto" src="../assets/img/meidaodao.mp4"></video>
+                        <p class="goods_intro">{{ detailData.searchDec.con }}</p>
+                        <!--<div class="auto_height">-->
+                            <!--<img class="auto_pos" @click="show2=!show2" v-show="show2" style="z-index: 2" src="../assets/img/meidaodao_poster.jpg" alt="">-->
+                            <!--<video class="auto_pos" controls preload="auto" src="../assets/img/meidaodao.mp4"></video>-->
+                        <!--</div>-->
+                    </div>
+                    <div class="imgDesc_wrap" v-if="detailData.searchDec">
+                        <div  v-if="detailData.searchDec.detilUrl" v-for="(item ,index) in detailData.searchDec.detilUrl">
+                            <img :src="'http://wx01.lecake.com/'+item" alt="">
                         </div>
                     </div>
                     <div class="desc_col">
@@ -386,9 +307,9 @@
             <footer class="global_fix_bottom">
                 <div class="footer_wrap">
                     <nav class="global_footer clear_fix">
-                        <a href="" class="card_btn">购物车</a>
+                        <a href="#" class="card_btn" @click="car">购物车<span v-if="chooseGoodsNum" class="cart_num">{{chooseGoodsNum}}</span></a>
                         <a href="" class="udesk_btn">客服</a>
-                        <button class="addCard">加入购物车</button>
+                        <button class="addCard" @click="sendGoods(detailData)">加入购物车</button>
                     </nav>
                 </div>
             </footer>
@@ -400,6 +321,8 @@
 <script>
     import ScrollTop from './goodsList/scrollTop'
     import { swiper, swiperSlide } from 'vue-awesome-swiper'
+    import {mapActions,mapGetters} from "vuex"
+
     export default {
         name: "goodsDetail",
         components:{
@@ -428,37 +351,59 @@
                 show3:true,
                 show4:false,
                 wt:"",
-                apprInfo:[]
+                apprInfo:[],
+                add:{}
             }
         },
+        computed:{
+            ...mapGetters(["chooseGoodsNum"])
+        },
         methods:{
+            car(){
+                this.$router.push('/cart');
+            },
+           ...mapActions(['sendGoods']),
+          goBack(){
+              this.$router.go(-1);
+          },
+          goHome(){
+              this.$router.push("/home");
+          },
           bor(){
               var switch_item = document.querySelectorAll(".goods_switch .switch_item");
               for (var i=0;i<switch_item.length;i++){
-                  switch_item[i].onclick=function () {
-                      for (var j=0;j<switch_item.length;j++) {
-                          switch_item[j].className = "switch_item";
-                      }
-                      this.className="switch_item active";
-                  }
+                  switch_item[i].className = "switch_item";
               }
-
-          },
-          goBack(){
-              this.$router.go(-1)
-          },
-          goHome(){
-              this.$router.push("/home")
+              this.className="switch_item active";
           }
         },
+        // mounted(){
+        //             var switch_item = document.querySelectorAll(".goods_switch .switch_item");
+        //             console.log(switch_item)
+        //             for (var i=0;i<switch_item.length;i++){
+        //                 switch_item[i].onclick=function () {
+        //                     for (var j=0;j<switch_item.length;j++) {
+        //                         switch_item[j].className = "switch_item";
+        //                     }
+        //                     this.className="switch_item active";
+        //                     console.log('aa');
+        //                 }
+        //     }
+        // },
         created(){
             let goodsId = this.$route.query.goodsId;
             this.$http.get(`${this.$api}/detail?goodsId=${goodsId}`).then(({data})=>{
                 this.detailData = data;
                 console.log(data);
                 this.wt = 13*data.sweetNess;
-                this.apprInfo = data.apprInfo.slice(0,2)
+                if (data.apprInfo){
+                    this.apprInfo = data.apprInfo.slice(0, 2);
+                }
                 console.log(this.apprInfo);
+            })
+            this.$http.get(`${this.$api}/upPrice`).then(({data})=>{
+                this.add = data;
+                console.log(this.add);
             })
         }
 
@@ -772,6 +717,10 @@
         font-size: 20px;
         padding: 24px 0;
         border: 1PX solid transparent;
+        box-sizing: border-box;
+    }
+    .add .goods_switch div:last-of-type .switch_item{
+        margin: 0 0 20px 0;
     }
     .add{
         color: #3e3e3e;
@@ -1361,5 +1310,30 @@
     .share_wrapper .icon_wrap img {
         width: 100%;
         height: 100%;
+    }
+    .imgDesc_wrap{
+        width: 100%;
+    }
+    .imgDesc_wrap img{
+        width: 100%;
+    }
+    .global_footer a .cart_num {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: 50%;
+        top: 4px;
+        margin-left: 8px;
+        box-sizing: border-box;
+        height: 32px;
+        padding: 8px;
+        min-width: 32px;
+        text-align: center;
+        font-size:2px;
+        color: #ffffff;
+        background: #ff4001;
+        border-radius: 16px;
+        top: 8px;
     }
 </style>

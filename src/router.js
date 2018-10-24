@@ -28,6 +28,7 @@ import GoodComments from './components/goodComments'
 
 Vue.use(Router)
 
+
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
