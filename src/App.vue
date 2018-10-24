@@ -48,7 +48,6 @@
         },
         created(){
             var obj = JSON.parse(sessionStorage.getItem("userInfo"))
-            // console.log(obj);
             this.changeState(obj);
         }
     }

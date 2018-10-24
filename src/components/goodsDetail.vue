@@ -76,33 +76,24 @@
                                 </div>
                                 <div class="scroll_wrap" v-if="detailData.goodsChoose">
                                     <div class="goods_switch clear_fix">
-                                        <!--<div  v-for="(item ,index) in detailData.goodsChoose" :key="index">-->
-                                            <!--<a href="javascript:void(0)"  class="switch_item active">-->
-                                                <!--<span>建议</span>-->
-                                                <!--<strong class="haipi">{{item.userNum}}</strong>-->
-                                            <!--</a>-->
-                                        <!--</div>-->
-
-                                        <!--<a href="javascript:void(0)"  @click="bor" class="switch_item">-->
-                                            <!--<span>建议</span>-->
-                                            <!--<strong class="haipi">12-16人食</strong>-->
-                                        <!--</a>-->
+                                        <div  v-for="(item ,index) in detailData.goodsChoose" :key="index" @click="choose(item)">
+                                            <a href="javascript:void(0)"  :class="item.isActive?'switch_item active':'switch_item'">
+                                                <span>建议</span>
+                                                <strong class="haipi">{{item.userNum}}</strong>
+                                            </a>
+                                        </div>
                                     </div>
                                     <div class="goods_list">
                                         <div class="goods_item">
                                             <div class="spec clear_fix">
                                                 <p class="weight icon">
-                                                    约700g
+                                                    {{myObj.goodsWeight}}
                                                 </p>
                                                 <p class="size icon">
-                                                    约
-                                                    <span>20</span>
-                                                    <span>*16</span>
-                                                    <span>*4</span>
-                                                    cm
+                                                    {{myObj.goodsSize}}
                                                 </p>
                                                 <p class="tableware icon">
-                                                    <span>含10套餐具</span>
+                                                    <span>{{this.myObj.tableNum}}</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -352,7 +343,8 @@
                 show4:false,
                 wt:"",
                 apprInfo:[],
-                add:{}
+                add:{},
+                myObj:{}
             }
         },
         computed:{
@@ -360,7 +352,6 @@
             ...mapGetters(["chooseGoodsNum"])
         },
         methods:{
-
             car(){
                 this.$router.push('/cart');
             },
@@ -374,36 +365,45 @@
           },
           goHome(){
               this.$router.push("/home");
-          }
+          },
+            choose(item){
+                this.detailData.goodsChoose.forEach((item1)=>{
+                    item1.isActive = false;
+                })
+                item.isActive = true;
+                this.myObj.goodsWeight = item.goodsWeight;
+                this.myObj.goodsSize = item.goodsWeight;
+                this.myObj.tableNum = item.tableNum;
+            }
         },
-        // mounted(){
-        //             var switch_item = document.querySelectorAll(".goods_switch .switch_item");
-        //             console.log(switch_item)
-        //             for (var i=0;i<switch_item.length;i++){
-        //                 switch_item[i].onclick=function () {
-        //                     for (var j=0;j<switch_item.length;j++) {
-        //                         switch_item[j].className = "switch_item";
-        //                     }
-        //                     this.className="switch_item active";
-        //                     console.log('aa');
-        //                 }
-        //     }
-        // },
         created(){
             let goodsId = this.$route.query.goodsId;
             console.log(goodsId);
             this.$http.get(`${this.$api}/detail?goodsId=${goodsId}`).then(({data})=>{
+                if(data.goodsChoose){
+                    for(let i = 0;i < data.goodsChoose.length;i++){
+                        if(i == 0){
+                            data.goodsChoose[0].isActive = true;
+                            this.myObj.goodsWeight = data.goodsChoose[0].goodsWeight;
+                            this.myObj.goodsSize = data.goodsChoose[0].goodsSize;
+                            this.myObj.tableNum = data.goodsChoose[0].tableNum;
+                        }else{
+                            data.goodsChoose[i].isActive = false;
+                        }
+                    }
+                }
+                console.log(data.goodsChoose);
                 this.detailData = data;
-                console.log(data);
+                // console.log(data);
                 this.wt = 13*data.sweetNess;
                 if (data.apprInfo){
                     this.apprInfo = data.apprInfo.slice(0, 2);
                 }
-                console.log(this.apprInfo);
+                // console.log(this.apprInfo);
             })
             this.$http.get(`${this.$api}/upPrice`).then(({data})=>{
                 this.add = data;
-                console.log(this.add);
+                // console.log(this.add);
             })
         }
 
