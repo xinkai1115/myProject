@@ -125,6 +125,7 @@
         created() {
             var uid = this.$route.query.uid;
             this.uid=uid;
+            this.isChoose = this.uid!="1000"?true:false;
             this.$http.get(`${this.$api}/list?uid=${uid}`).then(({data})=>{
                 this.data = data;
             })
@@ -134,10 +135,6 @@
                 var uid = this.$route.query.uid;
                 this.uid=uid;
                 this.isChoose = this.uid!="1000"?true:false;
-                if(!uid){
-                    this.isChoose = true;
-                }
-                console.log(12133);
                 this.$http.get(`${this.$api}/list?uid=${uid}`).then(({data})=>{
                     this.data = data;
                 })

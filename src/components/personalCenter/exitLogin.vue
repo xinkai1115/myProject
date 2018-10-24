@@ -2,13 +2,13 @@
     <div class="exit">
         <div class="header">
             <div class="header-div1">
-                <a href="#" @click="goLast()"></a>
+                <a @click="goLast" href="#" ></a>
                 <h1>账号管理</h1>
             </div>
         </div>
         <div class="inner">
             <img src="../../assets/img/avatar.png" alt="">
-            <h3>15071423618</h3>
+            <h3>{{userName}}</h3>
         </div>
         <div class="exit_footer">
             <h2>
@@ -16,19 +16,27 @@
             </h2>
         </div>
         <div class="footer_button">
-            <a href="#">退出登录</a>
+            <a @click="logOut" href="#">退出登录</a>
         </div>
-
     </div>
 </template>
 
 <script>
+    import {mapState,mapMutations} from "vuex"
     export default {
         name: "exitLogin",
         methods:{
+            ...mapMutations(["logOut1"]),
             goLast(){
                 this.$router.go(-1)
+            },
+            logOut(){
+                this.logOut1();
+                this.$router.go(-1)
             }
+        },
+        computed:{
+            ...mapState(["userName"])
         }
     }
 </script>

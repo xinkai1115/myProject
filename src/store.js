@@ -59,7 +59,11 @@ export default new Vuex.Store({
                   state.goodsId.push(item._id);
               }
           }
-          console.log(state.cartGoods);
+          var obj = {
+              userName:"",
+              cartGoods:state.cartGoods
+          }
+          sessionStorage.setItem("userInfo",JSON.stringify(obj));
       },
       //用户未登录时，点击对已加入购物车的加减，在actions里分发此方法
       changeNumber(state,{add,item}){
@@ -78,6 +82,11 @@ export default new Vuex.Store({
                   }
               }
           })
+          var obj = {
+              userName:"",
+              cartGoods:state.cartGoods
+          }
+          sessionStorage.setItem("userInfo",JSON.stringify(obj));
       },
       //确认删除商品
       sureDel(state){
@@ -87,6 +96,11 @@ export default new Vuex.Store({
                   state.cartGoods.splice(index,1);
               }
           })
+          var obj = {
+              userName:"",
+              cartGoods:state.cartGoods
+          }
+          sessionStorage.setItem("userInfo",JSON.stringify(obj));
       },
       //点击全选按钮，选中所有商品
       chooseAll1(state,bool){
@@ -102,7 +116,41 @@ export default new Vuex.Store({
       saveSite(state,data){
           state.address = data;
           console.log(data);
+          var obj = {
+              userName:state.userName,
+              cartGoods:state.cartGoods,
+              address:state.address
+          }
+          sessionStorage.setItem("userInfo",JSON.stringify(obj));
+      },
+      //退出登录的改变
+      logOut1(state){
+          state.isLogin = false;
+          state.cartGoods = [];
+          var obj = {
+              userName:"",
+              cartGoods:[],
+              address:[]
+          }
+          sessionStorage.setItem("userInfo",JSON.stringify(obj));
+
+      },
+      //  刷新页面有本地有缓存时，把缓存赋值
+      changeState(state,item){
+          console.log(item);
+          if(item){
+              if(item.userName){
+                  state.userName = item.userName;
+                  state.isLogin = true;
+                  state.cartGoods = item.cartGoods;
+                  state.address = item.address;
+              }else{
+                  state.cartGoods = item.cartGoods;
+                  state.address = item.address;
+              }
+          }
       }
+
   },
   getters:{
     //  实时返回购物车里是否有商品的boolean值
@@ -169,7 +217,12 @@ export default new Vuex.Store({
          }).then(({data})=>{
              this.state.cartGoods = data.result.cartGoods;
              this.state.address = data.result.address;
-             console.log(this.state);
+             var obj = {
+                 userName:this.state.userName,
+                 cartGoods:this.state.cartGoods,
+                 address:this.state.address
+             }
+             sessionStorage.setItem("userInfo",JSON.stringify(obj));
          })
      },
      // 用户已登录，点击加入购物车的异步请求
@@ -180,6 +233,12 @@ export default new Vuex.Store({
                  userName:this.state.userName
              }).then(({data})=>{
                  this.state.cartGoods = data.result.cartGoods;
+                 var obj = {
+                     userName:this.state.userName,
+                     cartGoods:this.state.cartGoods,
+                     address:this.state.address
+                 }
+                 sessionStorage.setItem("userInfo",JSON.stringify(obj));
              })
          }else{
              //用户未登录，分发同步的mutations->sendGoods
@@ -199,6 +258,12 @@ export default new Vuex.Store({
                  if(data.cancel){
                      this.state.chooseDel = true;
                  }
+                 var obj = {
+                     userName:this.state.userName,
+                     cartGoods:this.state.cartGoods,
+                     address:this.state.address
+                 }
+                 sessionStorage.setItem("userInfo",JSON.stringify(obj));
              })
          }else{
              //用户未登录，分发同步的mutations-> changeNumber
@@ -216,6 +281,12 @@ export default new Vuex.Store({
                 if(data.cancel){
                     this.state.chooseDel = false;
                 }
+                var obj = {
+                    userName:this.state.userName,
+                    cartGoods:this.state.cartGoods,
+                    address:this.state.address
+                }
+                sessionStorage.setItem("userInfo",JSON.stringify(obj));
             })
          }else{
              context.commit('sureDel')

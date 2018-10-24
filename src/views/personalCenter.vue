@@ -8,12 +8,12 @@
         <div class="centre">
             <div class="header1">
                 <div class="header-img">
-                    <router-link to="/index/exitlogin"><img src="../assets/img/avatar.png" alt=""></router-link>
+                    <router-link :to="isLogin?'/index/exitlogin':'/index'"><img src="../assets/img/avatar.png" alt=""></router-link>
                 </div>
                 <div class="header-login">
                     <router-link to="/index/login" v-show="!isLogin" >登录</router-link>
-                    <h3 v-show="isLogin">
-                        <span class="name">150***3618</span>
+                    <h3 v-if="isLogin">
+                        <span class="name">{{user}}</span>
                         <span class="leve">LEV1</span>
                     </h3>
                     <h4 v-show="isLogin">
@@ -51,7 +51,6 @@
     </div>
 </template>
 <script>
-    // import Login from "../components/login"
     import {mapState} from 'vuex'
     export default {
         data(){
@@ -64,10 +63,15 @@
 
         },
         computed:{
-            ...mapState(["isLogin"])
+            ...mapState(["isLogin","userName"]),
+            user(){
+                var tel = this.userName;
+                var reg = /^(\d{3})\d{4}(\d{4})$/;
+                tel = tel.replace(reg, "$1****$2");
+                return tel;
+            }
         },
         mounted(){
-
         }
     }
 

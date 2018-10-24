@@ -26,7 +26,7 @@
 
  <!--行为处理逻辑-->
 <script>
-  import  {mapGetters} from 'vuex'
+  import  {mapGetters,mapMutations} from 'vuex'
     export default {
         name: 'app',
         computed:{
@@ -42,6 +42,14 @@
                     this.className = "active"
                 }
             }
+        },
+        methods:{
+            ...mapMutations(["changeState"])
+        },
+        created(){
+            var obj = JSON.parse(sessionStorage.getItem("userInfo"))
+            // console.log(obj);
+            this.changeState(obj);
         }
     }
 
